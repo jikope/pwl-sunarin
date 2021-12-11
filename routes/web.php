@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ArticleController;
+use app\http\controllers\ArticleController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,3 +24,11 @@ Route::get('/add', [ArticleController::class, 'create']);
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::group(['prefix' => '/dashboard'], function() {
+    Route::get('/', function() {
+      return view('dashboard');
+    })->name('dashboard');
+
+    Route::resource('users', UserController::class);
+});
