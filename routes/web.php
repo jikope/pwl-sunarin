@@ -20,3 +20,4 @@ Route::get('/', function () {
 
 //contributor
 Route::get('/add', [ArticleController::class, 'create']);
+Route::post('/add', [ArticleController::class, 'store']);

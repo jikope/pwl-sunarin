@@ -12,7 +12,8 @@
   </head>
   <body>
     <div class="container mt-5">
-  
+  <form action="" method="post">
+  @csrf
   <div class="form-group">
     <label >Title</label>
     <input type="text" id="title" name="title" class="form-control"  placeholder="name@example.com">
@@ -23,19 +24,20 @@
     <label >Category</label>
     <select name="caregory" class=" category form-control">
     @foreach($categories as $c)
-      <option name="{{1}}" >{{$c}}</option>
+      <option value="{{1}}" >{{$c}}</option>
     @endforeach
   </select>
 
   </div>
 
+<input type="hidden" name="type" value="draft">
 
   <div class="form-group">
     <label>Content</label>
     <textarea class="form-control" id="content" name="article" rows="3"></textarea>
   </div>
-  <input type="submit" id="btnSubmit" name="submit" class="form-control">
-
+  <input type="submit" id="btnSubmit" class="form-control">
+  </form>
 </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -44,33 +46,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
-    $( "#btnSubmit" ).click(function() {
-        var m = $('#content').val();
-        axios.post('http://localhost:5000/preprocess', {
-    message: m
-  })
-  .then(function (response) {
-            var t = $('#title').val();
-            var category =  $(".category option:selected").val();
-            axios.post('http://localhost:8000/add', {
-            message: m,
-            category: category,
-            title:t,
-            words: response.data.text
 
-        })
-        .then(function (response) {
-            console.log(response.data.category);
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
-
-    });
     </script>
   </body>
 </html>

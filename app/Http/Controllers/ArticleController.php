@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Article;
+use App\Models\Category;
 
 class ArticleController extends Controller
 {
@@ -14,8 +16,10 @@ class ArticleController extends Controller
 
     public function store(Request $request){
         $data = $request->except("_token");
-        $data->id = 1;
+        $data["user_id"] = 1;
         dd($data);
+        Article::create($data);
+        
     }
 
     public function edit(){
