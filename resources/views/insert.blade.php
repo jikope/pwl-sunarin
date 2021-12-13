@@ -11,30 +11,40 @@
     <title>Input Article</title>
   </head>
   <body>
-    <div class="container mt-5">
-  <form action="" method="post">
+    <div class="container mt-5 card shadow p-5">
+    @if(empty($data))
+  <form action="" method="post"  enctype="multipart/form-data" >
+  @else
+  <form  method="post" enctype="multipart/form-data" >
+  <input type="hidden" name="_method" value="put">
+  @endif
   @csrf
   <div class="form-group">
     <label >Title</label>
-    <input type="text" id="title" name="title" class="form-control"  placeholder="name@example.com">
+    <input type="text" id="title" value="{{$data->title ?? ''}}"  name="title" class="form-control"  placeholder="name@example.com">
   </div>
 
+  <div class="form-group">
+    <label >Image</label>
+    <input type="file" id="title" name="image" class="form-control"  placeholder="name@example.com">
+  </div>
  
   <div class="form-group">
     <label >Category</label>
-    <select name="caregory" class=" category form-control">
+    <select name="category_id" class=" category form-control">
     @foreach($categories as $c)
-      <option value="{{1}}" >{{$c}}</option>
+      <option value="{{$c->id}}" >{{$c->category}}</option>
     @endforeach
   </select>
 
   </div>
 
-<input type="hidden" name="type" value="draft">
+
 
   <div class="form-group">
     <label>Content</label>
-    <textarea class="form-control" id="content" name="article" rows="3"></textarea>
+    <textarea class="form-control" id="content" name="content" rows="3">
+   {{$data->content ?? ''}} </textarea>
   </div>
   <input type="submit" id="btnSubmit" class="form-control">
   </form>

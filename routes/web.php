@@ -16,8 +16,14 @@ use App\Http\Controllers\ArticleController;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('contribut.article');
 
 //contributor
-Route::get('/add', [ArticleController::class, 'create']);
-Route::post('/add', [ArticleController::class, 'store']);
+
+Route::get('/article/add', [ArticleController::class, 'create']);
+Route::post('/article/add', [ArticleController::class, 'store']);
+Route::get('/article/{id}/edit', [ArticleController::class, 'edit']);
+Route::put('/article/{id}/edit', [ArticleController::class, 'update']);
+
+//change to put
+Route::get('/article/{id}/publish', [ArticleController::class, 'publish']);
