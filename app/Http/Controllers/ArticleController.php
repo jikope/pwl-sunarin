@@ -10,7 +10,12 @@ class ArticleController extends Controller
 {
     public function create(){
         $categories = Category::all();
-        return view("insert",compact('categories'));
+        return view("template.template",compact('categories'));
+    }
+
+    public function viewcontrib(){
+        $data = Article::join("categories","categories.id","articles.category_id")->select("title","category","articles.id as id")->where("type","!=","proposal")->paginate(1);
+        return view("contributor.display",compact('data'));
     }
 
     public function store(Request $request){
@@ -18,7 +23,7 @@ class ArticleController extends Controller
         if($request->hasFile('image')){
             $data = $request->except('_token');
             $data["type"]="draft";
-            $data["user_id"] = 1;
+            $data["user_id"] = Auth::user()->id;
             $filenameWithExt = $request->file('image')->getClientOriginalName();
             $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
             $extension = $request->file('image')->getClientOriginalExtension();
@@ -34,16 +39,12 @@ class ArticleController extends Controller
                 return redirect()->route('patient')->with('failed','Alert! terjadi kesalahan');
             }
         }
-       
-        
-       
-        
     }
 
     public function edit($id){
         $categories = Category::all();
         $data= Article::find($id);
-        return view("insert", compact('data','categories'));
+        return view("contributor.insert", compact('data','categories'));
     }
 
     public function update(Request $request, $id){
@@ -68,7 +69,12 @@ class ArticleController extends Controller
         }
     }
 
-    public function delete($id){
+    public function show($id){
+        $data = Article::find($id);
+        return view("display", compact("data"));
+    }
+
+    public function destroy($id){
         $deletedRows = Article::where('id', $id)->delete();
         return redirect()->route('patient')->with('success', 'data berhasil dihapus');
 
@@ -79,9 +85,9 @@ class ArticleController extends Controller
         return redirect()->route('contribut.article')->with('success', 'data berhasil dihapus');
     }
 
-    public function complete($id){
+    public function setcomplete($id){
         $publishedRows = Article::where('id', $id)->update(["type"=>"complete"]);
-        return redirect()->route('contribut.article')->with('success', 'data berhasil dihapus');
+        return redirect()->route('article.index')->with('success', 'data berhasil dihapus');
     }
 
     public function toDraft($id){
