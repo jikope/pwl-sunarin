@@ -20,8 +20,9 @@ class CreateArticlesTable extends Migration
             $table->unsignedBigInteger("category_id");
             $table->foreign('category_id')->references('id')->on('categories');        
             $table->string('title');
+            $table->string('image');
             $table->longText('content');
-            $table->enum('type',['draft','publish','proposal']);
+            $table->enum('type',['draft','complete','publish','proposal']);
             $table->timestamps();
         });
     }
