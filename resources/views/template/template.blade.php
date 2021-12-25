@@ -47,9 +47,6 @@
                             </a>
                         </li>
 
-
-
-
                         @if(Auth::user()->role=='super-admin')
                         <li class="sidebar-item {{ Request::is('admin') ? 'active' : '' }}">
                             <a href="{{URL::to('/admin/kelurahan')}}" class='sidebar-link'>
@@ -91,6 +88,21 @@
                                 </li>
                                 <li class="submenu-item ">
                                     <a href="{{ route('editor.published') }}">Published</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="sidebar-item  has-sub">
+                            <a href="#" class='sidebar-link'>
+                                <i class="bi bi-person"></i>
+                                <span>Category</span>
+                            </a>
+                            <ul class="submenu ">
+                                <li class="submenu-item ">
+                                    <a href="{{ route('category.index') }}">Dafar Kategori</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="{{ route('category.create') }}">Tambah Kategori</a>
                                 </li>
                             </ul>
                         </li>

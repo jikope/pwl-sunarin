@@ -4,8 +4,9 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\GuestController;
-use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\LatestController;
+use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ContributorController;
 use App\Http\Controllers\EditorController;
 
@@ -47,13 +48,16 @@ Route::get('/editor/news/{id}/draft', [ArticleController::class, 'setdraft']);
 Route::get('/article/{id}/delete', [ArticleController::class, 'delete']);
 //Route::get('/add', [ArticleController::class, 'create']);
 
-
 //user biasa
 Route::get('/', [GuestController::class, 'index']);
 Route::get('/latest/{id}', [LatestController::class, 'insert'])->name('add.latest');
 Route::get('/{id}/show',[ArticleController::class, 'show'])->name('display.article');
-//kapan leh update
 
+// Category
+Route::get('/category', [CategoryController::class, 'index'])->name('category.index');
+Route::get('/category/create', [CategoryController::class, 'create'])->name('category.create');
+Route::post('/category', [CategoryController::class, 'store'])->name('category.store');
+Route::delete('/category/{id}', [CategoryController::class, 'destroy'])->name('category.delete');
 
 //
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
