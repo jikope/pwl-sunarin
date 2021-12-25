@@ -7,6 +7,8 @@ use App\Http\Controllers\GuestController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\LatestController;
 use App\Http\Controllers\ContributorController;
+use App\Http\Controllers\EditorController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,9 +20,7 @@ use App\Http\Controllers\ContributorController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('contribut.article');
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 //contributor
 Route::post('/contributor/news/add', [ContributorController::class, 'store']);
@@ -35,6 +35,11 @@ Route::get('/contributor/news/{id}/complete', [ContributorController::class, 'se
 Route::delete('/contributor/news/draft/{id}/delete', [ContributorController::class, 'destroy']);
 
 //editor
+Route::get('/editor/proposals', [EditorController::class, 'proposals'])->name('proposal.index');
+Route::get('/editor/proposals/{id}', [EditorController::class, 'show'])->name('proposal.show');
+Route::post('/editor/proposals/action', [EditorController::class, 'action'])->name('proposal.action');
+Route::get('/editor/published', [EditorController::class, 'getPublished'])->name('editor.published');
+
 Route::get('/editor/news/{id}/publish', [EditorController::class, 'setpublish']);
 Route::get('/editor/news/{id}/publish', [ArticleController::class, 'setpublish']);
 Route::get('/editor/news/{id}/draft', [ArticleController::class, 'setdraft']);
