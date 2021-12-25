@@ -47,7 +47,7 @@ Route::get('/article/{id}/delete', [ArticleController::class, 'delete']);
 Route::get('/', [GuestController::class, 'index']);
 Route::get('/latest/{id}', [LatestController::class, 'insert'])->name('add.latest');
 Route::get('/{id}/show',[ArticleController::class, 'show'])->name('display.article');
-//kapan leh update
+
 
 
 //
