@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\Category;
+
 class CategorySeeder extends Seeder
 {
     /**
@@ -13,6 +14,9 @@ class CategorySeeder extends Seeder
      */
     public function run()
     {
-        Category::create(["category"=>"default_category"]);
+        Category::create(["category" => "default_category"]);
+        Category::create(["category" => "Technology"]);
+        Category::create(["category" => "Sport"]);
+        Category::create(["category" => "Music"]);
     }
 }
