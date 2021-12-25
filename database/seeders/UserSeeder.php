@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 use Hash;
+use Spatie\Permission\Models\Role;
+
 class UserSeeder extends Seeder
 {
     /**
@@ -16,13 +18,17 @@ class UserSeeder extends Seeder
     {
         $role = ["editor","contributor", "user"];
         for($i=0; $i<3;$i++){
-            User::create([
-                "name" => "user".$i,
-                "email" => "user".$i."@gmail.com",
+            $user = User::create([
+                "name" => "user-".$role[$i],
+                "email" => $role[$i]."@gmail.com",
                 "role" => $role[$i],
                 "password" => Hash::make('fanfanfan'),
                 "email_verified_at" => \Carbon\Carbon::now()
             ]);
+
+          $roleUser = Role::where('name', $role[$i])->get();
+
+          $user->assignRole($roleUser);
         }
     }
 }

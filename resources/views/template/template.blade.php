@@ -56,7 +56,7 @@
                         </li>
                         @endif
 
-                        @if(Auth::user()->role=='contributor')
+                        @if(Auth::user()->hasRole('contributor'))
                         <li class="sidebar-item has-sub {{ Request::segment(2)==='news' ? 'active' : '' }}">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-stack"></i>
@@ -76,18 +76,18 @@
                             </ul>
                         </li>
                         @endif
-                        @if(Auth::user()->role=='editor')
+                        @if(Auth::user()->hasRole('editor'))
                         <li class="sidebar-item  has-sub">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-person"></i>
                                 <span>Berita</span>
                             </a>
                             <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="{{asset('/admin/edit-profil')}}">Edit Berita</a>
+                                <li class="submenu-item {{ Request::segment(3)==='draft' ? 'active' : '' }} ">
+                                    <a href="{{ route('proposal.index') }}">Proposal</a>
                                 </li>
                                 <li class="submenu-item ">
-                                    <a href="{{asset('/admin/change-password')}}">Released</a>
+                                    <a href="{{ route('editor.published') }}">Published</a>
                                 </li>
                             </ul>
                         </li>
