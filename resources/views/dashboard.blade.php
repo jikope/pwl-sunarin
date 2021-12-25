@@ -1,5 +1,8 @@
-@extends('layouts.dashboard')
-
+@extends('template.template')
 @section('content')
-    Home
+<div class="container mt-5 card shadow p-5">
+    <h4 class="mb-3">Welkam to Dashboard </h4>
+
+
+</div>
 @endsection
