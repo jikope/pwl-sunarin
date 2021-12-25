@@ -21,8 +21,6 @@ use App\Http\Controllers\EditorController;
 |
 */
 
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
 //contributor
 Route::post('/contributor/news/add', [ContributorController::class, 'store']);
 Route::get('/contributor/news/{id}/edit', [ContributorController::class, 'edit']);
