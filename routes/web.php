@@ -9,7 +9,7 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ContributorController;
 use App\Http\Controllers\EditorController;
-
+use App\Events\WebSocketDemoEvent;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,6 +20,14 @@ use App\Http\Controllers\EditorController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+//sandbox
+Route::get('/notif', function () {
+  broadcast(new WebSocketDemoEvent("something i broadcasted","content of notif"));
+  return view("contributor.notif");
+  //edit profile
+  //edit topic
+
+});
 
 //contributor
 Route::post('/contributor/news/add', [ContributorController::class, 'store'])->name('contributor.add');

@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="csrf-token" content="{{csrf_token()}}"> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard-Bacata</title>
     <link rel="shortcut icon" type="image/x-icon" href="{{URL::asset('img/SITIJAYA LOGO FOOTER.png')}}">
@@ -12,7 +13,6 @@
 
     <link rel="stylesheet" href="{{URL::asset('assets/vendors/iconly/bold.css')}}">
     <link rel="stylesheet" href="{{URL::asset('assets/vendors/toastify/toastify.css')}}">
-    <link rel="stylesheet" href="{{URL::asset('assets/vendors/perfect-scrollbar/perfect-scrollbar.css')}}">
     <link rel="stylesheet" href="{{URL::asset('assets/vendors/bootstrap-icons/bootstrap-icons.css')}}">
     <link rel="stylesheet" href="{{URL::asset('assets/css/app.css')}}">
     <link rel="shortcut icon" href="{{URL::asset('assets/images/favicon.svg')}}" type="image/x-icon">
@@ -150,7 +150,7 @@
             </footer>
         </div>
     </div>
-    <script src="{{asset('assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js')}}"></script>
+    <script src="js/app.js"></script>
     <script src="{{asset('assets/js/bootstrap.bundle.min.js')}}"></script>
     <script src="{{asset('assets/vendors/simple-datatables/simple-datatables.js')}}"></script>
     <script src="{{asset('assets/vendors/tinymce/tinymce.min.js')}}"></script>
@@ -169,9 +169,7 @@
     <script src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.js"></script>
     <!-- filepond -->
     <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
-    <script src="{{asset('datetimepicker-master/jquery.js')}}"></script>
-    <script src="{{asset('datetimepicker-master/build/jquery.datetimepicker.full.min.js')}}"></script>
-
+  
     <script>
         tinymce.init({
             selector: '#default'
@@ -182,8 +180,8 @@
             plugins: 'code image'
         });
     </script>
-
-    <script src="{{asset('assets/js/main.js')}}"></script>
+<!--
+    <script src="{{asset('assets/js/main.js')}}"></script>-->
     <script src="{{asset('assets/js/xhrequest.js')}}"></script>
     <script src='https://www.google.com/recaptcha/api.js'></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -215,23 +213,9 @@
         }
 
 
-        $(function() {
-            $('#coordinator').on('change', function(e) {
-                axiosGet("{{URL::to('/admin/banksampah/anggota/bykoor/')}}" + '/' + $('#coordinator').find(":selected").val()).then(response => {
-                    console.log(response)
-                    var datahtml = ""
-                    response.forEach(element => {
-                        datahtml += '<div><input type="checkbox" name="anggota[]" value="' + element.id + '*' + element.price + '" class="custom-control-input" id="customCheck1">' +
-                            '<label class="custom-control-label" for="customCheck1">' + element.name + '</label></div>'
-                    });
-                    console.log(datahtml);
-                    $(".pengguna").html(datahtml);
-                }).catch(err => {
-                    console.log("error");
-                })
-            })
-        })
+      
     </script>
+  
 </body>
 
 </html>

@@ -47,9 +47,11 @@
   </div>
 </nav> 
 <div class="h-100 my-2 d-flex justify-content-center align-items-center border-bottom py-3">
+    @isset($category)
     @foreach($category as $c)
     <a href="#"><h5 class="  mx-3">{{$c->category}}</h5></a>
     @endforeach
+    @endisset
  
   </div>
 <div class="container">
