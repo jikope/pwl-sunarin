@@ -63,6 +63,13 @@
                                 <span>Berita</span>
                             </a>
 
+                            <li class="sidebar-item {{ Request::is('admin') ? 'active' : '' }}">
+                            <a href="{{URL::to('/admin')}}" class='sidebar-link'>
+                                <i class="bi bi-grid-fill"></i>
+                                <span>Notifikasi</span>
+                            </a>
+                            </li>
+
                             <ul class="submenu ">
                                 <li class="submenu-item {{ Request::segment(3)==='draft' ? 'active' : '' }} ">
                                     <a href="{{URL::to('/contributor/news/draft')}}">Draft</a>

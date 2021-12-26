@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Models\Vocab;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Http;
 
 class EditorController extends Controller
 {
@@ -39,6 +41,16 @@ class EditorController extends Controller
         switch ($request->action) {
             case "approve":
                 $article->type = "publish";
+                $pre = Http::post('http://localhost:5000/preprocess', [
+                    'message' => strip_tags($article->content),
+                    
+                 
+                ]);
+                $toStore = $pre->json('text');
+                Vocab::create([
+                    'article_id'=>$article->id,
+                    'words'=>$toStore
+                ]);
                 break;
             case "deny":
                 $article->type = "complete";

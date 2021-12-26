@@ -25,7 +25,7 @@ class ContributorController extends Controller
         $data = Article::join("categories", "categories.id", "articles.category_id")->select("title", "category", "articles.id as id", "user_id")->where([
             ["type", "draft"],
             ["user_id", Auth::user()->id]
-        ])->paginate(1);
+        ])->paginate(5);
         return view("contributor.display", compact('data'));
     }
 
@@ -64,6 +64,7 @@ class ContributorController extends Controller
 
             $info = Article::create($data);
             if (!is_null($info)) {
+             
                 return redirect()->route('contribut.article')->with('success', 'Success! data berhasil ditambahkan');
             } else {
                 return redirect()->route('patient')->with('failed', 'Alert! terjadi kesalahan');

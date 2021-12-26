@@ -33,7 +33,7 @@
 
   <div class="form-group">
     <label>Content</label>
-    <textarea id="dark" cols="30" rows="10" name="content" >{{$data->content ?? ''}}} </textarea>
+    <textarea id="dark" cols="30" rows="10" name="content" >{{$data->content ?? ''}}</textarea>
   </div>
   <button class="btn btn-primary" type="submit">Kirim</button>
   </form>

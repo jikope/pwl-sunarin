@@ -16,7 +16,7 @@
        <h2 class="mt-3">{{$data->title}}</h2>
        <small>{{$data->updated_at}}</small>
        <p>
-       {{$data->content}}
+       {!!$data->content!!}
        </p>
     </div>
 

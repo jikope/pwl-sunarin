@@ -14,10 +14,7 @@
       </h4>
 
 
-      @can('create articles')
-      <button class="btn btn-primary">bvlablabalakl</button>
-      @endcan
-
+      
     @if(Request::segment(3)==='draft')
     <a class="mb-3" href="{{URL::to('/article/add')}}"> <button class="btn btn-primary">+</button> </a>
     @endif

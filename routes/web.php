@@ -22,12 +22,12 @@ use App\Http\Controllers\EditorController;
 */
 
 //contributor
-Route::post('/contributor/news/add', [ContributorController::class, 'store']);
-Route::get('/contributor/news/{id}/edit', [ContributorController::class, 'edit']);
+Route::post('/contributor/news/add', [ContributorController::class, 'store'])->name('contributor.add');
+Route::get('/contributor/news/{id}/edit', [ContributorController::class, 'edit'])->name('contributor.draft.edit');
 Route::put('/contributor/news/{id}/edit', [ArticleController::class, 'update']);
-Route::get('/contributor/news/draft', [ContributorController::class, 'draft'])->name('draft.index');
-Route::get('/contributor/news/published', [ContributorController::class, 'published'])->name('published.index');
-Route::get('/contributor/news/complete', [ContributorController::class, 'complete'])->name('complete.index');
+Route::get('/contributor/news/draft', [ContributorController::class, 'draft'])->name('contributor.draft.index');
+Route::get('/contributor/news/published', [ContributorController::class, 'published'])->name('contributor.published.index');
+Route::get('/contributor/news/complete', [ContributorController::class, 'complete'])->name('contributor.complete.index');
 Route::get('/contributor/news/add', [ContributorController::class, 'create'])->name('draft.add');
 
 Route::get('/contributor/news/{id}/complete', [ContributorController::class, 'setcomplete']);
@@ -48,8 +48,11 @@ Route::get('/article/{id}/delete', [ArticleController::class, 'delete']);
 
 //user biasa
 Route::get('/', [GuestController::class, 'index']);
+Route::get('/suggest', [GuestController::class, 'getSugesstion']);
 Route::get('/latest/{id}', [LatestController::class, 'insert'])->name('add.latest');
-Route::get('/{id}/show',[ArticleController::class, 'show'])->name('display.article');
+Route::get('/{id}/show',[GuestController::class, 'show'])->name('display.article');
+Route::get('/category/{category}', [GuestController::class, 'getbyCategory']);
+
 
 // Category
 Route::get('/category', [CategoryController::class, 'index'])->name('category.index');
@@ -57,8 +60,6 @@ Route::get('/category/create', [CategoryController::class, 'create'])->name('cat
 Route::post('/category', [CategoryController::class, 'store'])->name('category.store');
 Route::delete('/category/{id}', [CategoryController::class, 'destroy'])->name('category.delete');
 
-//
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::group(['prefix' => '/dashboard'], function() {
     Route::get('/', function() {
