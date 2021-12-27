@@ -99,6 +99,13 @@
                             </ul>
                         </li>
 
+                        <li class="sidebar-item {{ Request::is('admin') ? 'active' : '' }}">
+                            <a href="{{URL::to('/editor/contributor-request')}}" class='sidebar-link'>
+                                <i class="bi bi-grid-fill"></i>
+                                <span>Contributor Request</span>
+                            </a>
+                            </li>
+
                         <li class="sidebar-item  has-sub">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-person"></i>

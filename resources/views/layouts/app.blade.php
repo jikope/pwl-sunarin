@@ -46,24 +46,8 @@
       </li>
   </div>
 </nav> 
-<div class="h-100 my-2 d-flex justify-content-center align-items-center border-bottom py-3">
-    @foreach($category as $c)
-    <a href="#"><h5 class="  mx-3">{{$c->category}}</h5></a>
-    @endforeach
- 
-  </div>
-<div class="container">
-    <div class="row">
-        <div class="col-4 py-3" >
-    <div class="input-group mb-3">
-    <input type="text" class="form-control mr-3" placeholder="Type Keyword Here"  aria-describedby="basic-addon2">
-    <div class="input-group-append pl-3">
-        <button class="btn btn-primary" type="button">Search</button>
-    </div>
-    </div>
-    </div>
-</div>
-</div>
+
+
     <div id="app">
         <main class="py-4">
             @yield('content')

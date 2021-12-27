@@ -9,7 +9,7 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ContributorController;
 use App\Http\Controllers\EditorController;
-
+use App\Http\Controllers\SuperController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,6 +20,12 @@ use App\Http\Controllers\EditorController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+//super user
+Route::get('/admin/users', [SuperController::class, 'users'])->name('super.users');
+Route::get('/admin/contributors', [SuperController::class, 'contributors'])->name('super.contributors');
+Route::get('/admin/editors', [SuperController::class, 'editors'])->name('super.editors');
+Route::get('/admin/editor/add', [SuperController::class, 'addeditors'])->name('super.contributors');
+Route::post('/admin/editor/add', [SuperController::class, 'storeeditors']);
 
 //contributor
 Route::post('/contributor/news/add', [ContributorController::class, 'store'])->name('contributor.add');
@@ -42,6 +48,10 @@ Route::get('/editor/published', [EditorController::class, 'getPublished'])->name
 Route::get('/editor/news/{id}/publish', [EditorController::class, 'setpublish']);
 Route::get('/editor/news/{id}/publish', [ArticleController::class, 'setpublish']);
 Route::get('/editor/news/{id}/draft', [ArticleController::class, 'setdraft']);
+Route::get('/editor/contributor-request', [EditorController::class, 'contributorrequest'])->name('editor.contributor-request');
+Route::get('/editor/contributor-request/{id}/view', [EditorController::class, 'contributorrequest'])->name('contributor-request.show');
+Route::post('/editor/contributor-upgrade', [EditorController::class, 'contributorupgrade']);
+
 //if editor send decline message
 Route::get('/article/{id}/delete', [ArticleController::class, 'delete']);
 //Route::get('/add', [ArticleController::class, 'create']);
@@ -52,7 +62,7 @@ Route::get('/suggest', [GuestController::class, 'getSugesstion']);
 Route::get('/latest/{id}', [LatestController::class, 'insert'])->name('add.latest');
 Route::get('/{id}/show',[GuestController::class, 'show'])->name('display.article');
 Route::get('/category/{category}', [GuestController::class, 'getbyCategory']);
-
+Route::get('/search/{term}', [GuestController::class, 'search']);
 
 // Category
 Route::get('/category', [CategoryController::class, 'index'])->name('category.index');
@@ -70,3 +80,7 @@ Route::group(['prefix' => '/dashboard'], function() {
 });
 
 Auth::routes();
+
+//register contributor
+
+//

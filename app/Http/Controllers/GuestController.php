@@ -50,4 +50,11 @@ class GuestController extends Controller
         return view("guest", compact('data','category'));
     }
 
+    public function search($term){
+        $category =  $this->category;
+        $data = Article::join('categories','category_id','categories.id')->where("type","publish")->where('content','LIKE','%'.$term.'%')->select('articles.id as id', 'title')
+                      ->paginate(10);
+        return view("guest", compact('data','category'));
+    }
+
 }

@@ -70,4 +70,12 @@ class EditorController extends Controller
 
         return view('editor/display', compact('data'));
     }
+
+    public function contributorrequest(){
+        $data = Article::join("categories", "categories.id", "articles.category_id")->select("title", "category", "articles.id as id", "user_id")->where([
+            ["type", "draft"],
+            ["user_id", Auth::user()->id]
+        ])->paginate(5);
+        return view("editor.display", compact('data'));
+    }
 }
