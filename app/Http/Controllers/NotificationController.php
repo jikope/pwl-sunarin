@@ -1,0 +1,33 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Models\Notification;
+use App\Events\NotifSentEvent;
+use App\Events\NotifCounterEvent;
+use Auth;
+class NotificationController extends Controller
+{
+
+    public function index(){
+        return view('contributor.notif');
+    }
+
+    public function fetch(){
+        return Notification::where('user_id',Auth::user()->id)->orderBy('created_at','desc')->get();
+    }
+    public function send(){
+        $message = Notification::create([
+            'user_id'=>3,
+            'title'=>'new title',
+            'message'=>'message',
+            'created_at'=>\Carbon\Carbon::now(),
+            'updated_at'=>\Carbon\Carbon::now()
+        ]);
+        $messages = Notification::where('user_id',Auth::user()->id)->get();
+        //dd($messages->count());
+        Broadcast(new NotifSentEvent(3, $message));
+        Broadcast(new NotifCounterEvent(3,$messages->count()));
+    }
+}

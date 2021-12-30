@@ -2,9 +2,7 @@
 
 @section('content')
 <div class="h-100 my-2 d-flex justify-content-center align-items-center border-bottom py-3">
-    @foreach($category as $c)
-    <a href="#"><h5 class="  mx-3">{{$c->category}}</h5></a>
-    @endforeach
+    
  
   </div>
 

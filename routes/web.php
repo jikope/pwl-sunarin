@@ -10,6 +10,8 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ContributorController;
 use App\Http\Controllers\EditorController;
 use App\Http\Controllers\SuperController;
+use App\Http\Controllers\NotificationController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -84,3 +86,11 @@ Auth::routes();
 //register contributor
 
 //
+
+Route::get('/', function(){
+    return view('contributor.notif');
+});
+
+Route::get('/notify', [NotificationController::class, 'send']);
+Route::get('/notif', [NotificationController::class, 'index']);
+Route::get('/notification', [NotificationController::class, 'fetch']);

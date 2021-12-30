@@ -25,6 +25,7 @@
     <link rel="stylesheet" href="{{URL::asset('assets/vendors/bootstrap-icons/bootstrap-icons.css')}}">
     <link rel="stylesheet" href="{{URL::asset('assets/css/app.css')}}">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -77,7 +78,7 @@
     <script src="{{asset('assets/js/main.js')}}"></script>
     <script src="{{asset('assets/js/xhrequest.js')}}"></script>
     <script src='https://www.google.com/recaptcha/api.js'></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-</body>
 
+    
+</body>
 </html>

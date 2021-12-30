@@ -66,7 +66,7 @@
                             <li class="sidebar-item {{ Request::is('admin') ? 'active' : '' }}">
                             <a href="{{URL::to('/admin')}}" class='sidebar-link'>
                                 <i class="bi bi-grid-fill"></i>
-                                <span>Notifikasi</span>
+                                <span>Notifikasi</span> <span class="bg-danger text-white notificate" style="border-radius:10px; width:20px; height:20px">0</span>
                             </a>
                             </li>
 
@@ -195,15 +195,11 @@
     <script src='https://www.google.com/recaptcha/api.js'></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
-        var msg = '{{Session::get('
-        success ')}}';
-        var err = '{{Session::get('
-        failed ')}}';
+        var msg = '{{Session::get('success')}}';
+        var err = '{{Session::get('failed')}}';
 
-        var success = '{{Session::has('
-        success ')}}';
-        var alert = '{{Session::has('
-        failed ')}}';
+        var success = '{{Session::has('success')}}';
+        var alert = '{{Session::has('failed')}}';
 
         if (success) {
             Toastify({
@@ -222,23 +218,11 @@
         }
 
 
-        $(function() {
-            $('#coordinator').on('change', function(e) {
-                axiosGet("{{URL::to('/admin/banksampah/anggota/bykoor/')}}" + '/' + $('#coordinator').find(":selected").val()).then(response => {
-                    console.log(response)
-                    var datahtml = ""
-                    response.forEach(element => {
-                        datahtml += '<div><input type="checkbox" name="anggota[]" value="' + element.id + '*' + element.price + '" class="custom-control-input" id="customCheck1">' +
-                            '<label class="custom-control-label" for="customCheck1">' + element.name + '</label></div>'
-                    });
-                    console.log(datahtml);
-                    $(".pengguna").html(datahtml);
-                }).catch(err => {
-                    console.log("error");
-                })
-            })
-        })
+        var id = '{{Auth::user()->id}}';
+   
     </script>
-</body>
 
+    <script src="js/app.js"></script>
+    <script>
+    </script>
 </html>
