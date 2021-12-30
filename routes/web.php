@@ -87,10 +87,8 @@ Auth::routes();
 
 //
 
-Route::get('/', function(){
-    return view('contributor.notif');
-});
 
-Route::get('/notify', [NotificationController::class, 'send']);
+
+Route::post('/notify', [NotificationController::class, 'send']);
 Route::get('/notif', [NotificationController::class, 'index']);
 Route::get('/notification', [NotificationController::class, 'fetch']);

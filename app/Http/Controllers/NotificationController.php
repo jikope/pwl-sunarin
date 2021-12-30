@@ -17,17 +17,18 @@ class NotificationController extends Controller
     public function fetch(){
         return Notification::where('user_id',Auth::user()->id)->orderBy('created_at','desc')->get();
     }
-    public function send(){
+    public function send(Request $request){
         $message = Notification::create([
             'user_id'=>3,
-            'title'=>'new title',
-            'message'=>'message',
+            'title'=>$request->title,
+            'message'=>$request->message,
             'created_at'=>\Carbon\Carbon::now(),
             'updated_at'=>\Carbon\Carbon::now()
         ]);
-        $messages = Notification::where('user_id',Auth::user()->id)->get();
+        $messages = Notification::where('user_id',3)->get();
         //dd($messages->count());
         Broadcast(new NotifSentEvent(3, $message));
         Broadcast(new NotifCounterEvent(3,$messages->count()));
+        return 200;
     }
 }
