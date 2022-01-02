@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Http;
 use App\Events\NotifSentEvent;
 use App\Events\NotifCounterEvent;
+use URL;
 
 class EditorController extends Controller
 {
@@ -77,16 +78,18 @@ class EditorController extends Controller
         if ($result) {
             
             $message = Notification::create([
-                'user_id'=>3,
+                'user_id'=>$article->user_id,
                 'title'=>"artikel anda ditolak",
-                'message'=>$this->makeMsg(false,$article->title,$request->message),
+                'message'=>$this->makeMsg($isAcc,$article->title,$request->message),
+                'url'=>URL::to('/contributor/news/draft/'),
+                'isRead'=>'0',
                 'created_at'=>\Carbon\Carbon::now(),
                 'updated_at'=>\Carbon\Carbon::now()
             ]);
-            $messages = Notification::where('user_id',3)->get();
+            $messages = Notification::where('user_id',$article->user_id)->get();
             //dd($messages->count());
-            Broadcast(new NotifSentEvent(3, $message));
-            Broadcast(new NotifCounterEvent(3,$messages->count()));
+            Broadcast(new NotifSentEvent($article->user_id, $message));
+            Broadcast(new NotifCounterEvent($article->user_id,$messages->count()));
             return 200;
 
             

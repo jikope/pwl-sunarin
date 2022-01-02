@@ -5302,6 +5302,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['user'],
+  kelas: "",
   data: function data() {
     return {
       notification: []
@@ -5315,7 +5316,10 @@ __webpack_require__.r(__webpack_exports__);
       _this.notification.unshift({
         title: event.message.title,
         message: event.message.message,
-        created_at: event.message.created_at
+        created_at: event.message.created_at,
+        url: event.message.url,
+        isRead: event.message.isRead,
+        $id: event.message.id
       });
     });
   },
@@ -5328,6 +5332,21 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.get('notification').then(function (response) {
         _this2.notification = response.data;
+      });
+    },
+    getUri: function getUri(uri) {
+      return uri;
+    },
+    classGenerate: function classGenerate(isRead) {
+      if (isRead == "0") {
+        this.kelas = "bg-primary text-white";
+      }
+
+      return "card border p-3 " + this.kelas;
+    },
+    readNotif: function readNotif(id, url) {
+      axios.get('/notification/' + id + '/read').then(function (response) {
+        window.location.href = url;
       });
     }
   }
@@ -5412,7 +5431,6 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 
 window.Pusher = __webpack_require__(/*! pusher-js */ "./node_modules/pusher-js/dist/web/pusher.js");
-var message = [];
 window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
   broadcaster: 'pusher',
   key: "321",
@@ -5423,6 +5441,9 @@ window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
 });
 window.Echo.channel('notif_counter' + id).listen('NotifCounterEvent', function (event) {
   $(".notificate").text(event.notifications_counter);
+});
+window.axios.get('/notification/count').then(function (response) {
+  $(".notificate").text(response.data);
 });
 
 /***/ }),
@@ -55678,16 +55699,29 @@ var render = function () {
         { staticStyle: { "list-style-type": "none" } },
         _vm._l(_vm.notification, function (message, index) {
           return _c("li", { key: index }, [
-            _c("div", { staticClass: "p-3 border card m-2 border-rounded" }, [
-              _c("p", [
-                _c("strong", [_vm._v(_vm._s(message.title) + "  ")]),
-                _c("small", { staticClass: "mr-5" }, [
-                  _vm._v(_vm._s(_vm.getDateFormat(message.created_at))),
+            _c(
+              "a",
+              {
+                class: _vm.classGenerate(message.isRead),
+                on: {
+                  click: function ($event) {
+                    return _vm.readNotif(message.id, message.url)
+                  },
+                },
+              },
+              [
+                _c("p", [
+                  _c("strong", [_vm._v(_vm._s(message.title) + "  ")]),
+                  _c("small", { staticClass: "mr-5" }, [
+                    _vm._v(_vm._s(_vm.getDateFormat(message.created_at))),
+                  ]),
                 ]),
-              ]),
-              _vm._v(" "),
-              _c("p", [_vm._v(_vm._s(message.message))]),
-            ]),
+                _vm._v(" "),
+                _c("p", [_vm._v(_vm._s(message.url))]),
+                _vm._v(" "),
+                _c("p", [_vm._v(_vm._s(message.message))]),
+              ]
+            ),
           ])
         }),
         0

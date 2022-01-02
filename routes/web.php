@@ -86,9 +86,7 @@ Auth::routes();
 //register contributor
 
 //
-
-
-
-Route::post('/notify', [NotificationController::class, 'send']);
 Route::get('/notif', [NotificationController::class, 'index']);
 Route::get('/notification', [NotificationController::class, 'fetch']);
+Route::get('/notification/count', [NotificationController::class, 'counter']);
+Route::get('/notification/{id}/read', [NotificationController::class, 'setRead']);

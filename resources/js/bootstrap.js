@@ -34,7 +34,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 import Echo from 'laravel-echo';
 
 window.Pusher = require('pusher-js');
-var message = []
+
 window.Echo = new Echo({
      broadcaster: 'pusher',
      key: process.env.MIX_PUSHER_APP_KEY,
@@ -49,4 +49,8 @@ window.Echo.channel('notif_counter'+id).listen('NotifCounterEvent',(event)=>{
 
     $(".notificate").text(event.notifications_counter);
 
+});
+window.axios.get('/notification/count').then(response=>{
+    $(".notificate").text(response.data);
+    
 });

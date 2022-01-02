@@ -13,7 +13,7 @@
 
     <h2>Proposal's Content</h2>
 
-    <p>{{ $article->content }}</p>
+    <p>{!! $article->content !!}</p>
 
     <h5>Approval/Denial Message</h5>
     <form action="{{ route('proposal.action') }}" method="POST">
