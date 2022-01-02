@@ -11,6 +11,7 @@ use App\Http\Controllers\ContributorController;
 use App\Http\Controllers\EditorController;
 use App\Http\Controllers\SuperController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\EmailController;
 
 /*
 |--------------------------------------------------------------------------
@@ -90,3 +91,7 @@ Route::get('/notif', [NotificationController::class, 'index']);
 Route::get('/notification', [NotificationController::class, 'fetch']);
 Route::get('/notification/count', [NotificationController::class, 'counter']);
 Route::get('/notification/{id}/read', [NotificationController::class, 'setRead']);
+
+
+//email send
+Route::get('/send/mail', [EmailController::class, 'index']);
