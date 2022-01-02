@@ -33,3 +33,8 @@ Don't forget to run DB Seeder
 ```
 php artisan db:seed 
 ```
+
+and also don't forget to run websocket server
+```
+php artisan websockets:serve 
+```
