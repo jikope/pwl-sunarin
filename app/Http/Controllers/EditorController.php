@@ -16,7 +16,7 @@ class EditorController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['role:editor']);
+        $this->middleware(['role:editor','verified']);
     }
 
     public function proposals()

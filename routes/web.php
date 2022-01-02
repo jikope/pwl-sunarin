@@ -81,7 +81,7 @@ Route::group(['prefix' => '/dashboard'], function() {
     Route::resource('users', UserController::class);
 });
 
-Auth::routes();
+Auth::routes(['verify'=>true]);
 
 //register contributor
 
