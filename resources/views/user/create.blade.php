@@ -1,4 +1,4 @@
-@extends('layouts.dashboard')
+@extends('template.template')
 
 @section('content')
 <h2>Create new user</h2>

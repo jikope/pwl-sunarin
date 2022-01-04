@@ -1,0 +1,37 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreateProposalsTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('proposals', function (Blueprint $table) {
+            $table->id();
+            $table->text('message')->nullable();
+            $table->enum('status', ['active', 'approved', 'denied'])->default('active');
+            $table->unsignedBigInteger("editor_id");
+            $table->foreign('editor_id')->references('id')->on('users');
+            $table->unsignedBigInteger("article_id");
+            $table->foreign('article_id')->references('id')->on('articles');
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('proposals');
+    }
+}

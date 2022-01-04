@@ -31,7 +31,7 @@ class UserController extends Controller
     {
         if ($request->hasFile('image')) {
             $data = $request->except('_token');
-            $data["type"] = "proposal";
+            $data["type"] = "complete";
             $data["user_id"] = Auth::user()->id;
 
             $filenameWithExt = $request->file('image')->getClientOriginalName();
@@ -63,16 +63,15 @@ class UserController extends Controller
                         // Sort editor yang mempunyai proposal paling sedikit
                         ->orderBy('pending_proposals_count', 'asc')
                         ->first();
-                } else {
-                    $editor = $editor[0];
                 }
+                dd($editor);
 
-                $proposal = Proposal::create([
-                    'editor_id' => $editor->id,
-                    'article_id' => $info->id
+                Proposal::create([
+                    'article_id' => $info->id,
+                    'editor_id' => $editor->id
                 ]);
 
-                return redirect()->route('dashboard')->with('success', 'Success! data berhasil ditambahkan');
+                return redirect()->route('contribut.article')->with('success', 'Success! data berhasil ditambahkan');
             } else {
                 return redirect()->route('patient')->with('failed', 'Alert! terjadi kesalahan');
             }

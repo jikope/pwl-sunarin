@@ -47,11 +47,11 @@
                             </a>
                         </li>
 
-                        @if(Auth::user()->role=='super-admin')
+                        @if(Auth::user()->hasRole('Supa-Admin'))
                         <li class="sidebar-item {{ Request::is('admin') ? 'active' : '' }}">
-                            <a href="{{URL::to('/admin/kelurahan')}}" class='sidebar-link'>
+                            <a href="{{ route('users.index') }}" class='sidebar-link'>
                                 <i class="bi bi-shop-window"></i>
-                                <span>Editors</span>
+                                <span>Users</span>
                             </a>
                         </li>
                         @endif
@@ -63,25 +63,25 @@
                                 <span>Berita</span>
                             </a>
 
-                            <li class="sidebar-item {{ Request::is('admin') ? 'active' : '' }}">
+                        <ul class="submenu ">
+                            <li class="submenu-item {{ Request::segment(3)==='draft' ? 'active' : '' }} ">
+                                <a href="{{URL::to('/contributor/news/draft')}}">Draft</a>
+                            </li>
+                            <li class="submenu-item {{ Request::segment(3)==='complete' ? 'active' : '' }} ">
+                                <a href="{{URL::to('/contributor/news/complete')}}">Submited</a>
+                            </li>
+                            <li class="submenu-item {{ Request::segment(3)==='releaspublisheded' ? 'active' : '' }} ">
+                                <a href="{{URL::to('/contributor/news/published')}}">Released</a>
+                            </li>
+                        </ul>
+                        </li>
+                        <li class="sidebar-item {{ Request::is('admin') ? 'active' : '' }}">
                             <a href="{{URL::to('/admin')}}" class='sidebar-link'>
                                 <i class="bi bi-grid-fill"></i>
                                 <span>Notifikasi</span>
                             </a>
-                            </li>
-
-                            <ul class="submenu ">
-                                <li class="submenu-item {{ Request::segment(3)==='draft' ? 'active' : '' }} ">
-                                    <a href="{{URL::to('/contributor/news/draft')}}">Draft</a>
-                                </li>
-                                <li class="submenu-item {{ Request::segment(3)==='complete' ? 'active' : '' }} ">
-                                    <a href="{{URL::to('/contributor/news/complete')}}">Submited</a>
-                                </li>
-                                <li class="submenu-item {{ Request::segment(3)==='releaspublisheded' ? 'active' : '' }} ">
-                                    <a href="{{URL::to('/contributor/news/published')}}">Released</a>
-                                </li>
-                            </ul>
                         </li>
+
                         @endif
                         @if(Auth::user()->hasRole('editor'))
                         <li class="sidebar-item  has-sub">
@@ -104,7 +104,7 @@
                                 <i class="bi bi-grid-fill"></i>
                                 <span>Contributor Request</span>
                             </a>
-                            </li>
+                        </li>
 
                         <li class="sidebar-item  has-sub">
                             <a href="#" class='sidebar-link'>
@@ -122,6 +122,14 @@
                         </li>
                         @endif
 
+                        @if(Auth::user()->hasRole('user'))
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="{{ route('contributor-request.form') }}">
+                                <i class="bi bi-person"></i>
+                                <span>Contributor Request</span>
+                            </a>
+                        </li>
+                        @endif
 
                         <li class="sidebar-item">
                             <a class="sidebar-link" href="{{ route('logout') }}" onclick="event.preventDefault();
