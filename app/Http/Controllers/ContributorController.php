@@ -64,7 +64,7 @@ class ContributorController extends Controller
 
             $info = Article::create($data);
             if (!is_null($info)) {
-             
+
                 return redirect()->route('contribut.article')->with('success', 'Success! data berhasil ditambahkan');
             } else {
                 return redirect()->route('patient')->with('failed', 'Alert! terjadi kesalahan');
@@ -93,6 +93,7 @@ class ContributorController extends Controller
             ['id', $id],
             ['user_id', Auth::user()->id]
         ])->update(["type" => "complete"]);
-        return redirect()->route('article.index')->with('success', 'data berhasil dihapus');
+
+        return redirect()->route('contributor.complete.index')->with('success', 'Article berhasil disubmit');
     }
 }

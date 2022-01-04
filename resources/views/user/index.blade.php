@@ -1,9 +1,9 @@
-@extends('layouts.dashboard')
+@extends('template.template')
 
 @section('content')
 <div>
     <h2>List of users</h2>
-    <button class="btn btn-primary">Create new User</button>
+    <a class="btn btn-primary" href={{ route('users.create') }}>Create new User</a>
     <table class="table">
         <thead>
             <tr>
@@ -22,6 +22,7 @@
                 <td>{{ $user->email }}</td>
                 <td>{{ $user->getRoleNames()[0] }}</td>
                 <td>
+                    <a class="btn btn-warning" href="{{ route('users.edit', $user->id) }}">Edit</a>
                     <form action="{{ route('users.destroy', $user->id) }}" method="POST">
                         @method('DELETE')
                         @csrf
