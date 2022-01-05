@@ -23,6 +23,20 @@ class GuestController extends Controller
         return view("guest", compact('data','category'));
     }
 
+
+
+    public function berita()
+    {
+        return view('berita');
+    }
+
+    public function kategori()
+    {
+        return view('kategori');
+    }
+
+
+
     public function show($id){
         $data = Article::findOrFail($id);
         return view("display", compact("data"));
@@ -34,11 +48,11 @@ class GuestController extends Controller
 
         $suggestion = Http::post('http://localhost:5000/suggest', [
             'latest' => $latest,
-         
+
         ]);
-        
+
         $suggestions_id = $suggestion->json('recommended_news');
-        
+
         $data = Article::whereIn('id',$suggestions_id)->paginate(10);
         return view("guest", compact('data'));
     }
