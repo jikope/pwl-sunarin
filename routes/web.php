@@ -59,19 +59,22 @@ Route::post('/editor/contributor-upgrade', [EditorController::class, 'contributo
 Route::get('/article/{id}/delete', [ArticleController::class, 'delete']);
 //Route::get('/add', [ArticleController::class, 'create']);
 
-//user biasa
-Route::get('/', [GuestController::class, 'index']);
-Route::get('/suggest', [GuestController::class, 'getSugesstion']);
-Route::get('/latest/{id}', [LatestController::class, 'insert'])->name('add.latest');
-Route::get('/{id}/show',[GuestController::class, 'show'])->name('display.article');
-Route::get('/category/{category}', [GuestController::class, 'getbyCategory']);
-Route::get('/search/{term}', [GuestController::class, 'search']);
-
 // Category
 Route::get('/category', [CategoryController::class, 'index'])->name('category.index');
 Route::get('/category/create', [CategoryController::class, 'create'])->name('category.create');
 Route::post('/category', [CategoryController::class, 'store'])->name('category.store');
 Route::delete('/category/{id}', [CategoryController::class, 'destroy'])->name('category.delete');
+
+
+//user biasa
+Route::get('/', [GuestController::class, 'index']);
+Route::get('/berita', [GuestController::class, 'berita']);
+Route::get('/suggest', [GuestController::class, 'getSugesstion']);
+Route::get('/latest/{id}', [LatestController::class, 'insert'])->name('add.latest');
+Route::get('/{id}/show',[GuestController::class, 'show'])->name('display.article');
+Route::get('/category/{category}', [GuestController::class, 'getbyCategory']);
+Route::get('/search', [GuestController::class, 'search']);
+Route::get('/kategori', [GuestController::class, 'kategori']);
 
 
 Route::group(['prefix' => '/dashboard'], function() {
