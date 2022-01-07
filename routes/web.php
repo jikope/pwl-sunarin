@@ -63,7 +63,7 @@ Route::get('/suggest', [GuestController::class, 'getSugesstion']);
 Route::get('/latest/{id}', [LatestController::class, 'insert'])->name('add.latest');
 Route::get('/{id}/show',[GuestController::class, 'show'])->name('display.article');
 Route::get('/category/{category}', [GuestController::class, 'getbyCategory']);
-Route::get('/search/{term}', [GuestController::class, 'search']);
+Route::get('/search', [GuestController::class, 'search']);
 Route::get('/kategori', [GuestController::class, 'kategori']);
 
 // Category

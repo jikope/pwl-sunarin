@@ -19,7 +19,7 @@
 
 
   <!-- Additional CSS Files -->
-  <link rel="stylesheet" href="{{asset('assets1/css/fontawesome.css')}}">
+  <link rel="stylesheet" href="{{asset('assets2/css/fontawesome.css')}}">
   <!-- <link rel="stylesheet" href="assets1/css/fontawesome-all.min.css"> -->
   <link rel="stylesheet" href="{{asset('assets2/css/templatemo-digimedia-v3.css')}}">
   <link rel="stylesheet" href="{{asset('assets2/css/animated.css')}}">
@@ -187,17 +187,17 @@
   <!-- Scripts -->
   <script src="{{asset('vendor1/jquery/jquery.min.js')}}"></script>
    <script src="{{asset('vendor1/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
- <script src="{{asset('assets1/js/owl-carousel.js')}}"></script>
+ <script src="{{asset('assets2/js/owl-carousel.js')}}"></script>
     <script src="{{asset('assets2/js/animation.js')}}"></script>
   <script src="{{asset('assets2/js/imagesloaded.js')}}"></script>
     <script src="{{asset('assets2/js/custom.js')}}"></script>
   <!-- Breaking New Pluging -->
- <script src="{{asset('assets2/js/jquery.ticker.js')}}"></script>
-   <script src="{{asset('assets2/js/site.js')}}"></script>
+ <script src="{{asset('assets1/js/jquery.ticker.js')}}"></script>
+   <script src="{{asset('assets1/js/site.js')}}"></script>
 
   <!-- <script src="./assets1/js/vendor/jquery-1.12.4.min.js"></script> -->
-    <script src="{{asset('assets2/js/popper.min.js')}}"></script>
- <script src="{{asset('assets2/js/bootstrap.min.js')}}"></script>
+    <script src="{{asset('assets1/js/popper.min.js')}}"></script>
+ <script src="{{asset('assets1/js/bootstrap.min.js')}}"></script>
 
  <script src="https://kit.fontawesome.com/7de2ffd618.js" crossorigin="anonymous"></script>
 

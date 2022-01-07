@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+#use Illuminate\Http\Request;
 use App\Models\Article;
 use App\Models\Latest;
 use App\Models\Category;
 use Auth;
 use Http;
-
+use Request;
 class GuestController extends Controller
 {
     protected $category;
@@ -27,7 +27,9 @@ class GuestController extends Controller
 
     public function berita()
     {
-        return view('berita');
+        $data = Article::where("type","publish")->paginate(1);
+        $category =  $this->category;
+        return view('berita',compact('data','category'));
     }
 
     public function kategori()
@@ -64,11 +66,12 @@ class GuestController extends Controller
         return view("guest", compact('data','category'));
     }
 
-    public function search($term){
+    public function search(Request $request){
+        $term=$request::get('key');
         $category =  $this->category;
         $data = Article::join('categories','category_id','categories.id')->where("type","publish")->where('content','LIKE','%'.$term.'%')->select('articles.id as id', 'title')
                       ->paginate(10);
-        return view("guest", compact('data','category'));
+        return view("berita", compact('data','category'));
     }
 
 }

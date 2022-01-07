@@ -8,7 +8,11 @@
           <div class="row">
             <div class="col-lg align-self-center">
               <div class="left-content show-up header-text wow fadeInBottom" id="judul" >
-                <h2 style="text-align: center; color: #4da6e7;"> BERITA TERBARU </h2>
+                <h2 style="text-align: center; color: #4da6e7;"> 
+                
+                BERITA TERBARU
+            
+                </h2>
               </div>
             </div>
           </div>
@@ -24,9 +28,11 @@
         <div class="row">
             <div class="col-lg-8 mb-5 mb-lg-0">
                 <div class="blog_left_sidebar">
+                   
+                    @foreach($data as $d)
                     <article class="blog_item">
                         <div class="blog_item_img">
-                            <img class="card-img rounded-0" src="assets1/img/blog/single_blog_1.png" alt="">
+                            <img class="card-img rounded-0" src="{{$d->image}}" alt="">
                             <a href="#" class="blog_item_date">
                                 <h3>15</h3>
                                 <p>Jan</p>
@@ -35,7 +41,7 @@
 
                         <div class="blog_details">
                             <a class="d-inline-block" href="detail.html">
-                                <h2>Google inks pact for new 35-storey office</h2>
+                                <h2>{{$d->title}}</h2>
                             </a>
                             <p>That dominion stars lights dominion divide years for fourth have don't stars is that
                                 he earth it first without heaven in place seed it second morning saying.</p>
@@ -46,110 +52,25 @@
                             </ul>
                         </div>
                     </article>
-
-                    <article class="blog_item">
-                        <div class="blog_item_img">
-                            <img class="card-img rounded-0" src="assets1/img/blog/single_blog_2.png" alt="">
-                            <a href="#" class="blog_item_date">
-                                <h3>15</h3>
-                                <p>Jan</p>
-                            </a>
-                        </div>
-
-                        <div class="blog_details">
-                            <a class="d-inline-block" href="detail.html">
-                                <h2>Google inks pact for new 35-storey office</h2>
-                            </a>
-                            <p>That dominion stars lights dominion divide years for fourth have don't stars is that
-                                he earth it first without heaven in place seed it second morning saying.</p>
-                                <ul class="blog-info-link">
-                                    <li><a href="#"><i class="fa fa-user"></i> admin</a></li>
-                                    <li><a href="#"><i class="fa fa-comments"></i> 03 Comments</a></li>
-                                    <li><a style="font-weight: bold;" href="#"><i class="fas fa-category"></i> <span style="font-weight: bold;">kategori:</span>Kesehatan</a></li>
-                                </ul>
-                        </div>
-                    </article>
-
-                    <article class="blog_item">
-                        <div class="blog_item_img">
-                            <img class="card-img rounded-0" src="assets1/img/blog/single_blog_3.png" alt="">
-                            <a href="#" class="blog_item_date">
-                                <h3>15</h3>
-                                <p>Jan</p>
-                            </a>
-                        </div>
-
-                        <div class="blog_details">
-                            <a class="d-inline-block" href="detail.html">
-                                <h2>Google inks pact for new 35-storey office</h2>
-                            </a>
-                            <p>That dominion stars lights dominion divide years for fourth have don't stars is that
-                                he earth it first without heaven in place seed it second morning saying.</p>
-                                <ul class="blog-info-link">
-                                    <li><a href="#"><i class="fa fa-user"></i> admin</a></li>
-                                    <li><a href="#"><i class="fa fa-comments"></i> 03 Comments</a></li>
-                                    <li><a style="font-weight: bold;" href="#"><i class="fas fa-category"></i> <span style="font-weight: bold;">kategori:</span>Kesehatan</a></li>
-                                </ul>
-                        </div>
-                    </article>
-
-                    <article class="blog_item">
-                        <div class="blog_item_img">
-                            <img class="card-img rounded-0" src="assets1/img/blog/single_blog_4.png" alt="">
-                            <a href="#" class="blog_item_date">
-                                <h3>15</h3>
-                                <p>Jan</p>
-                            </a>
-                        </div>
-
-                        <div class="blog_details">
-                            <a class="d-inline-block" href="detail.html">
-                                <h2>Google inks pact for new 35-storey office</h2>
-                            </a>
-                            <p>That dominion stars lights dominion divide years for fourth have don't stars is that
-                                he earth it first without heaven in place seed it second morning saying.</p>
-                                <ul class="blog-info-link">
-                                    <li><a href="#"><i class="fa fa-user"></i> admin</a></li>
-                                    <li><a href="#"><i class="fa fa-comments"></i> 03 Comments</a></li>
-                                    <li><a style="font-weight: bold;" href="#"><i class="fas fa-category"></i> <span style="font-weight: bold;">kategori:</span>Kesehatan</a></li>
-                                </ul>
-                        </div>
-                    </article>
-
+                    @endforeach
+                   
 
                     <nav class="blog-pagination justify-content-center d-flex">
-                        <ul class="pagination">
-                            <li class="page-item">
-                                <a href="#" class="page-link" aria-label="Previous">
-                                    <i class="ti-angle-left"><</i>
-                                </a>
-                            </li>
-                            <li class="page-item">
-                                <a href="#" class="page-link">1</a>
-                            </li>
-                            <li class="page-item active">
-                                <a href="#" class="page-link">2</a>
-                            </li>
-                            <li class="page-item">
-                                <a href="#" class="page-link" aria-label="Next">
-                                    <i class="ti-angle-right">></i>
-                                </a>
-                            </li>
-                        </ul>
+                    {{$data->links("pagination::bootstrap-4") }}
                     </nav>
                 </div>
             </div>
             <div class="col-lg-4">
                 <div class="blog_right_sidebar">
                     <aside class="single_sidebar_widget search_widget">
-                        <form action="#">
+                        <form action="/search">
                             <div class="form-group">
                                 <div class="input-group mb-3">
-                                    <input type="text" class="form-control" placeholder='Search Keyword'
+                                    <input type="text" name="key" class="form-control" placeholder='Search Keyword'
                                         onfocus="this.placeholder = ''"
                                         onblur="this.placeholder = 'Search Keyword'">
                                     <div class="input-group-append">
-                                        <button class="btns" type="button" style="background-color: #4da6e7; height: 100%;"><i class="fa fa-search"></i></button>
+                                        <button class="btns" type="submit" style="background-color: #4da6e7; height: 100%;"><i class="fa fa-search"></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -168,26 +89,8 @@
                                 <p style="padding-top: 20px; font-weight: 500;">kategori: kesehatan</p>
                             </div>
                         </div>
-                        <div class="media post_item">
-                            <img src="assets1/img/post/post_1.png" style="height: 100px; width: 100px;"  alt="post">
-                            <div class="media-body">
-                                <a href="detail.html">
-                                    <h3>From life was you fish...</h3>
-                                </a>
-                                <p>January 12, 2019</p>
-                                <p style="padding-top: 20px; font-weight: 500;">kategori: Politik</p>
-                            </div>
-                        </div>
-                        <div class="media post_item">
-                            <img src="assets1/img/post/post_1.png" style="height: 100px; width: 100px;"  alt="post">
-                            <div class="media-body">
-                                <a href="detail.html">
-                                    <h3>Astronomy Or Astrology</h3>
-                                </a>
-                                <p>03 Hours ago</p>
-                                <p style="padding-top: 20px; font-weight: 500;">kategori: Olahraga</p>
-                            </div>
-                        </div>
+                        
+                       
                     </aside>
 
                     <aside class="single_sidebar_widget post_category_widget">
