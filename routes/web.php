@@ -67,14 +67,21 @@ Route::delete('/category/{id}', [CategoryController::class, 'destroy'])->name('c
 
 //user biasa
 Route::get('/', [GuestController::class, 'index']);
+Route::get('/berita', [GuestController::class, 'berita']);
 Route::get('/suggest', [GuestController::class, 'getSugesstion']);
 Route::get('/latest/{id}', [LatestController::class, 'insert'])->name('add.latest');
 Route::get('/{id}/show',[GuestController::class, 'show'])->name('display.article');
 Route::get('/category/{category}', [GuestController::class, 'getbyCategory']);
+
+Route::get('/search', [GuestController::class, 'search']);
+Route::get('/kategori', [GuestController::class, 'kategori']);
+
+
 Route::get('/search/{term}', [GuestController::class, 'search']);
 
 Route::get('/contributor-request', [UserController::class, 'contributorRequestForm'])->name('contributor-request.form');
 Route::post('/contributor-request', [UserController::class, 'contributorRequest']);
+
 
 Route::group(['prefix' => '/dashboard'], function() {
     Route::get('/', function() {
