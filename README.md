@@ -38,3 +38,9 @@ and also don't forget to run websocket server
 ```
 php artisan websockets:serve 
 ```
+
+todo list
+1. copntributor request
+2. random pick editor 
+3. change latest view article database to cookie
+4. 

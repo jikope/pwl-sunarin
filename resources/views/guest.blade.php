@@ -2,9 +2,13 @@
 
 @section('content')
 <div class="h-100 my-2 d-flex justify-content-center align-items-center border-bottom py-3">
-    
- 
-  </div>
+    @foreach($category as $c)
+    <a href="#">
+        <h5 class="  mx-3">{{$c->category}}</h5>
+    </a>
+    @endforeach
+</div>
+
 
   <div id="blog" class="trending-area fix  wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.3s">
     <div class="container" style="margin-top: 58px;">
@@ -176,8 +180,10 @@
           </div>
         </div>
       </div>
+
     </div>
 </div>
+
 
 
   <!-- Whats New Start -->
@@ -222,9 +228,11 @@
                   </div>
                 </div>
               </div>
+
             </div>
           </div>
         </div>
+
       </div>
     </div>
   </div>

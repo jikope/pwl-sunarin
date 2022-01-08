@@ -16,7 +16,7 @@
 
       
     @if(Request::segment(3)==='draft')
-    <a class="mb-3" href="{{URL::to('/article/add')}}"> <button class="btn btn-primary">+</button> </a>
+    <a class="mb-3" href="{{ route('draft.add') }}"> <button class="btn btn-primary">+</button> </a>
     @endif
     <table class="table table-stripped">
   <thead>

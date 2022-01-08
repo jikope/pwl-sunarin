@@ -1,5 +1,7 @@
+
 <!DOCTYPE html>
 <html lang="en">
+
 
 <head>
 
@@ -30,6 +32,7 @@
 </head>
 
 <body>
+
 
   <!-- ***** Preloader Start ***** -->
   <div id="js-preloader" class="js-preloader">
@@ -106,6 +109,7 @@
         @yield('content')
     </main>
   </div>
+
 
 
 
