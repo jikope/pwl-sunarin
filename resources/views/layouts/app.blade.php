@@ -101,6 +101,7 @@
   <!-- ***** Header Area End ***** -->
 
   <div id="app">
+  <cateagory-component ></category-component>
     <main class="py-4">
         @yield('content')
     </main>
@@ -212,8 +213,10 @@
 
     });
 
+    
+    var id = '{{Auth::user()->id ??  0}}';
      </script>
-
+<script src="/js/app.js"></script>
 </body>
 
     
