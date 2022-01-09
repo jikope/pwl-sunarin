@@ -13,11 +13,20 @@ class GuestController extends Controller
 {
     protected $category;
     public function __construct(){
-        $this->middleware(['role:contributor','verified']);
+        
         $this->category = Category::all();
     }
+
+    public function fetchCategory(){
+        return $this->category;
+    }
+
+    public function fetchNews(){
+        $data = Article::where("type","publish")->join('categories','category_id','categories.id')->select('articles.id as id','image','content','title','content','articles.updated_at as date','category')->take(9)->get();
+        return $data;
+    }
     public function index(){
-        $data = Article::where("type","publish")->paginate(10);
+        $data = Article::where("type","publish")->take(12)->get();
         $latest = Article::join('latests','latests.article_id','articles.id')->select("articles.title");
         $category =  $this->category;
 
@@ -33,10 +42,7 @@ class GuestController extends Controller
         return view('berita',compact('data','category'));
     }
 
-    public function kategori()
-    {
-        return view('kategori');
-    }
+  
 
 
 
@@ -61,10 +67,9 @@ class GuestController extends Controller
     }
 
     public function getByCategory($category){
-        $data = Article::join('categories','category_id','categories.id')->where('category',$category)->select('articles.id as id', 'title')->paginate(5);
-        $category =  $this->category;
-
-        return view("guest", compact('data','category'));
+        $data = Article::join('categories','category_id','categories.id')->where('category',$category)->select('articles.id as id','image','content','title','content','articles.updated_at as date','category')->get();
+        
+        return $data;
     }
 
     public function search(Request $request){
