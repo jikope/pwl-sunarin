@@ -37,9 +37,11 @@ class GuestController extends Controller
 
     public function berita()
     {
-        $data = Article::where("type","publish")->paginate(1);
+        $data = Article::where("type","publish")->orderBy('articles.updated_at', 'desc')->paginate(3);
+        $latest = Article::where("type","publish")->orderBy('articles.updated_at', 'desc')->paginate(3);
+
         $category =  $this->category;
-        return view('berita',compact('data','category'));
+        return view('berita',compact('data','latest','category'));
     }
 
   
@@ -62,12 +64,12 @@ class GuestController extends Controller
 
         $suggestions_id = $suggestion->json('recommended_news');
 
-        $data = Article::whereIn('id',$suggestions_id)->paginate(10);
-        return view("guest", compact('data'));
+        $data = Article::whereIn('id',$suggestions_id)->get();
+        return $data;
     }
 
     public function getByCategory($category){
-        $data = Article::join('categories','category_id','categories.id')->where('category',$category)->select('articles.id as id','image','content','title','content','articles.updated_at as date','category')->get();
+        $data = Article::join('categories','category_id','categories.id')->where('category',$category)->select('articles.id as id','image','content','title','content','articles.updated_at as date','category')->orderBy('updated_at','desc')->take(3)->get();
         
         return $data;
     }
@@ -75,9 +77,11 @@ class GuestController extends Controller
     public function search(Request $request){
         $term=$request::get('key');
         $category =  $this->category;
-        $data = Article::join('categories','category_id','categories.id')->where("type","publish")->where('content','LIKE','%'.$term.'%')->select('articles.id as id', 'title')
-                      ->paginate(10);
-        return view("berita", compact('data','category'));
+        $latest = Article::where("type","publish")->orderBy('articles.updated_at', 'desc')->paginate(3);
+        $data = Article::join('categories','category_id','categories.id')->where("type","publish")->where('content','LIKE','%'.$term.'%')->select('articles.id as id', 'title', 'image', 'articles.updated_at as date', 'content', 'user_id as author')
+                ->orderBy('articles.updated_at','desc')
+                ->paginate(5);
+        return view("berita", compact('data','category','latest'));
     }
 
 }

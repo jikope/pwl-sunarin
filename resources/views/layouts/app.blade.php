@@ -85,9 +85,9 @@
             <!-- ***** Menu Start ***** -->
             <ul class="nav" id="okejekk">
               <li class="scroll-to-section"><a href="#top" class="active">Beranda</a></li>
-              <li class="scroll-to-section"><a href="#blog">Berita</a></li>
-              <li class="scroll-to-section"><a href="#kategori">Kategori</a></li>
-              <li class="scroll-to-section"><a href="#contact">Kontak</a></li>
+              <li class="scroll-to-section"><a href="{{URL::to('/berita')}}">Berita</a></li>
+              <li class="scroll-to-section"><a href="{{URL::to('/#kategori')}}">Kategori</a></li>
+              <li class="scroll-to-section"><a href="{{URL::to('/#contact')}}">Kontak</a></li>
               <li class="scroll-to-section">
                 <div class="border-first-button"><a href="{{URL::to('/login')}}">Login</a></div>
               </li>
