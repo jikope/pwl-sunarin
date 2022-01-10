@@ -76,12 +76,14 @@ Route::get('/category/{category}', [GuestController::class, 'getbyCategory']);
 Route::get('/search', [GuestController::class, 'search']);
 Route::get('/kategori', [GuestController::class, 'kategori']);
 
+Route::get('/contributor-request', [UserController::class, 'contributorRequestForm'])->name('contributor-request.form');
+Route::post('/contributor-request', [UserController::class, 'contributorRequest']);
 
 Route::group(['prefix' => '/dashboard'], function() {
     Route::get('/', function() {
       return view('dashboard');
     })->name('dashboard');
-
+    
     Route::resource('users', UserController::class);
 });
 

@@ -8,6 +8,7 @@ use Auth;
 class LatestController extends Controller
 {
     public function insert($id){
+        if(Auth::check()){
         $late = Latest::where("user_id",Auth::user()->id)->latest()->first();
         if($late!=null){
             if($late->article_id != $id){
@@ -16,7 +17,7 @@ class LatestController extends Controller
             }
         }else{
             Latest::create(["user_id"=>Auth::user()->id, "article_id"=>$id]);
-        }
+        }}
         return redirect()->route('display.article',[$id]);
     }
 }

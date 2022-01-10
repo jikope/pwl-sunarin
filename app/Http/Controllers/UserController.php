@@ -72,7 +72,7 @@ class UserController extends Controller
                     'article_id' => $info->id
                 ]);
 
-                return redirect()->route('dashboard')->with('success', 'Success! data berhasil ditambahkan');
+                return redirect()->route('dashboard')->with('success', 'Success! proposal terkirim, mohon menunggu email dari kami');
             } else {
                 return redirect()->route('patient')->with('failed', 'Alert! terjadi kesalahan');
             }
