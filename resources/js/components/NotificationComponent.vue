@@ -68,7 +68,8 @@ import moment from 'moment';
                     window.location.href = url
                 })
                 
-            }
+            },
+           
             
         },
     }
