@@ -71,8 +71,6 @@ class EditorController extends Controller
                 }
 
                 $article->type = "publish";
-                $article->save();
-
                 $toStore = $pre->json('text');
                 Vocab::create([
                     'article_id' => $article->id,
@@ -85,14 +83,14 @@ class EditorController extends Controller
                 $article->type = "draft";
                 $article->proposal()->update([
                     'message' => $request->message,
-                    'status' => 'approved'
+                    'status' => 'denied'
                 ]);
                 break;                    
         }
         $result = $article->save();
         if ($result) {
             
-            $message = Notification::create([
+            $message = Notification::create([EditorController
                 'user_id'=>$article->user_id,
                 'title'=>"artikel anda ditolak",
                 'message'=>$this->makeMsg($isAcc,$article->title,$request->message),
