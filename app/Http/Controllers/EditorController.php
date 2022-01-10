@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use App\Models\Proposal;
+use App\Models\User;
 use App\Models\Vocab;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -41,22 +42,26 @@ class EditorController extends Controller
 
         switch ($request->action) {
             case "approve":
-                $article->type = "publish";
-                // $pre = Http::post('http://localhost:5000/preprocess', [
-                //     'message' => strip_tags($article->content),
-                // ]);
+                $pre = Http::post('http://localhost:5000/preprocess', [
+                    'message' => strip_tags($article->content),
+                ]);
                 $article->proposal()->update([
                     'message' => $request->message,
                     'status' => 'approved'
                 ]);
+                $author = User::findOrFail($article->user_id);
+                if ($author->roles[0]->name == "user" && $author->articles->count() == 1 && $author->articles[0]->type == 'proposal') {
+                    $author->syncRoles(['contributor']);
+                }
 
+                $article->type = "publish";
                 $article->save();
 
-                // $toStore = $pre->json('text');
-                // Vocab::create([
-                //     'article_id' => $article->id,
-                //     'words' => $toStore
-                // ]);
+                $toStore = $pre->json('text');
+                Vocab::create([
+                    'article_id' => $article->id,
+                    'words' => $toStore
+                ]);
                 break;
             case "deny":
                 $article->type = "complete";
