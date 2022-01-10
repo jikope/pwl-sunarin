@@ -170,67 +170,88 @@
     <script src="{{asset('assets/vendors/simple-datatables/simple-datatables.js')}}"></script>
     <script src="{{asset('assets/vendors/tinymce/tinymce.min.js')}}"></script>
     <script src="{{asset('assets/vendors/tinymce/plugins/code/plugin.min.js')}}"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
     <!-- image editor -->
-    <script src="https://unpkg.com/filepond-plugin-image-exif-orientation/dist/filepond-plugin-image-exif-orientation.js"></script>
-    <script src="https://unpkg.com/filepond-plugin-image-crop/dist/filepond-plugin-image-crop.js"></script>
-    <script src="https://unpkg.com/filepond-plugin-image-filter/dist/filepond-plugin-image-filter.js"></script>
-    <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
-    <script src="https://unpkg.com/filepond-plugin-image-resize/dist/filepond-plugin-image-resize.js"></script>
-    <!-- toastify -->
-    <script src="{{asset('assets/vendors/toastify/toastify.js')}}"></script>
-    <!-- filepond validation -->
-    <script src="https://unpkg.com/filepond-plugin-file-validate-size/dist/filepond-plugin-file-validate-size.js"></script>
-    <script src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.js"></script>
-    <!-- filepond -->
-    <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
-    <script src="{{asset('datetimepicker-master/jquery.js')}}"></script>
-    <script src="{{asset('datetimepicker-master/build/jquery.datetimepicker.full.min.js')}}"></script>
+        <script
+            src="https://unpkg.com/filepond-plugin-image-exif-orientation/dist/filepond-plugin-image-exif-orientation.js"></script>
+        <script src="https://unpkg.com/filepond-plugin-image-crop/dist/filepond-plugin-image-crop.js"></script>
+        <script src="https://unpkg.com/filepond-plugin-image-filter/dist/filepond-plugin-image-filter.js"></script>
+        <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
+        <script src="https://unpkg.com/filepond-plugin-image-resize/dist/filepond-plugin-image-resize.js"></script>
+        <!-- toastify -->
+        <script src="{{asset('assets/vendors/toastify/toastify.js')}}"></script>
+        <!-- filepond validation -->
+        <script
+            src="https://unpkg.com/filepond-plugin-file-validate-size/dist/filepond-plugin-file-validate-size.js"></script>
+        <script
+            src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.js"></script>
+        <!-- filepond -->
+        <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
+        <script src="{{asset('datetimepicker-master/jquery.js')}}"></script>
+        <script src="{{asset('datetimepicker-master/build/jquery.datetimepicker.full.min.js')}}"></script>
 
-    <script>
-        tinymce.init({
-            selector: '#default'
+        <script>
+
+            tinymce.init({ selector: '#default' });
+            tinymce.init({ selector: '#dark', toolbar: 'undo redo styleselect bold italic alignleft aligncenter alignright bullist numlist outdent indent code image', plugins: 'code image' });
+
+
+        </script>
+
+        <script src="{{asset('assets/js/main.js')}}"></script>
+        <script src='https://www.google.com/recaptcha/api.js'></script>
+        <script>
+
+
+
+    var msg = '{{Session::get('success')}}';
+    var err = '{{Session::get('failed')}}';
+
+    var success = '{{Session::has('success')}}';
+    var alert = '{{Session::has('failed')}}';
+
+
+    if(success){
+        Toastify({
+                    text: msg,
+                    duration: 3000,
+                    backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+                }).showToast();
+    }
+
+    if(alert){
+        Toastify({
+                    text: err,
+                    duration: 3000,
+                    backgroundColor: "#ff0000",
+                }).showToast();
+    }
+
+    let table1 = document.querySelector('#table1');
+        let dataTable = new simpleDatatables.DataTable(table1);
+
+
+    $('form #btn-delete').on('click',function(e){
+        e.preventDefault();
+        var form = $(this).parents('form');
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.value) {
+
+                form.submit();
+            }
         });
-        tinymce.init({
-            selector: '#dark',
-            toolbar: 'undo redo styleselect bold italic alignleft aligncenter alignright bullist numlist outdent indent code image',
-            plugins: 'code image'
-        });
-    </script>
+    });
 
-    <script src="{{asset('assets/js/main.js')}}"></script>
-    <script src="{{asset('assets/js/xhrequest.js')}}"></script>
-    <script src='https://www.google.com/recaptcha/api.js'></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script>
-        var msg = '{{Session::get('success')}}';
-        var err = '{{Session::get('failed')}}';
-
-        var success = '{{Session::has('success')}}';
-        var alert = '{{Session::has('failed')}}';
-
-        if (success) {
-            Toastify({
-                text: msg,
-                duration: 3000,
-                backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
-            }).showToast();
-        }
-
-        if (alert) {
-            Toastify({
-                text: err,
-                duration: 3000,
-                backgroundColor: "#ff0000",
-            }).showToast();
-        }
-
-
-        var id = '{{Auth::user()->id}}';
-   
-    </script>
-
-    <script src="/js/app.js"></script>
     <script>
 
 
