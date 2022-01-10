@@ -10,6 +10,9 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ContributorController;
 use App\Http\Controllers\EditorController;
 use App\Http\Controllers\SuperController;
+use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\EmailController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -69,9 +72,9 @@ Route::get('/latest/{id}', [LatestController::class, 'insert'])->name('add.lates
 Route::get('/{id}/show',[GuestController::class, 'show'])->name('display.article');
 Route::get('/category/{category}', [GuestController::class, 'getbyCategory']);
 Route::get('/search/{term}', [GuestController::class, 'search']);
+
 Route::get('/contributor-request', [UserController::class, 'contributorRequestForm'])->name('contributor-request.form');
 Route::post('/contributor-request', [UserController::class, 'contributorRequest']);
-
 
 Route::group(['prefix' => '/dashboard'], function() {
     Route::get('/', function() {
@@ -81,8 +84,15 @@ Route::group(['prefix' => '/dashboard'], function() {
     Route::resource('users', SuperController::class);
 });
 
-Auth::routes();
+Auth::routes(['verify'=>true]);
 
 //register contributor
 
-//
+Route::get('/notif', [NotificationController::class, 'index']);
+Route::get('/notification', [NotificationController::class, 'fetch']);
+Route::get('/notification/count', [NotificationController::class, 'counter']);
+Route::get('/notification/{id}/read', [NotificationController::class, 'setRead']);
+
+
+//email send
+Route::get('/send/mail', [EmailController::class, 'index']);

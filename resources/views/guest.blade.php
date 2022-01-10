@@ -7,7 +7,6 @@
         <h5 class="  mx-3">{{$c->category}}</h5>
     </a>
     @endforeach
-
 </div>
 
 <div class="container">

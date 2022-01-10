@@ -13,6 +13,7 @@ class GuestController extends Controller
 {
     protected $category;
     public function __construct(){
+        $this->middleware(['role:contributor','verified']);
         $this->category = Category::all();
     }
     public function index(){
