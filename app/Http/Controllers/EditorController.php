@@ -82,7 +82,7 @@ class EditorController extends Controller
                     }
                     $article->proposal()->delete();
                     $article->delete();
-                    $this->MailHelper($author->name, "selamat anda menjadi contributor. " + $author, $author);
+                    $this->MailHelper($author->name, "selamat anda menjadi contributor. " , $author->email);
                 }
 
                 $isAcc = true;
@@ -97,17 +97,17 @@ class EditorController extends Controller
                   //     'message' => $request->message,
                   //     'status' => 'denied'
                   // ]);
-                  $this->MailHelper($author->name, "Permohonan anda untuk menjadi contributor ditolak. " + $request->message, $author);
+                  $this->MailHelper($author->name, "Permohonan anda untuk menjadi contributor ditolak. " + $request->message, $author->email);
                   $article->delete();
                 }
                 break;                    
         }
-        return redirect()->route('contributor-request');
+        return redirect()->route('editor.contributor-request');
         // Line code kebawah tidak dieksekusi
         $result = $article->save();
 
         if ($result) {
-            $message = Notification::create([EditorController
+            $message = Notification::create([
                 'user_id'=>$article->user_id,
                 'title'=>"artikel anda ditolak",
                 'message'=>$this->makeMsg($isAcc,$article->title,$request->message),

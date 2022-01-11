@@ -53,6 +53,9 @@
       <div class="row">
         <div class="col-lg-8 col-sm-8 col-7">
           <ul class="info">
+            @if(Auth::check())
+            <li>{{'Hi!, '.Auth::user()->name}}</li>
+            @endif
             <li><a href="#"><i class="fa fa-envelope"></i>digimedia@gmail.com</a></li>
             <li><a href="#"><i class="fa fa-whatsapp"></i>0895388458497</a></li>
           </ul>
@@ -84,12 +87,23 @@
             <!-- ***** Logo End ***** -->
             <!-- ***** Menu Start ***** -->
             <ul class="nav" id="okejekk">
-              <li class="scroll-to-section"><a href="#top" class="active">Beranda</a></li>
-              <li class="scroll-to-section"><a href="#blog">Berita</a></li>
-              <li class="scroll-to-section"><a href="#kategori">Kategori</a></li>
-              <li class="scroll-to-section"><a href="#contact">Kontak</a></li>
+              <li class="scroll-to-section"><a href="{{URL::to('/')}}" class="active">Beranda</a></li>
+              <li class="scroll-to-section"><a href="{{URL::to('/berita')}}">Berita</a></li>
+              <li class="scroll-to-section"><a href="{{URL::to('/#kategori')}}">Kategori</a></li>
+              <li class="scroll-to-section"><a href="{{URL::to('/#contact')}}">Kontak</a></li>
+              @if(Auth::check())
+              <li class="scroll-to-section"><a href="{{Route('contributor-request.form')}}">Daftar Kontributor</a></li>
               <li class="scroll-to-section">
+                
+                <div class="border-first-button"><a href="{{URL::to('/login')}}" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">Logout</a></div>
+
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
+                @else
                 <div class="border-first-button"><a href="{{URL::to('/login')}}">Login</a></div>
+                @endif
               </li>
             </ul>
             <a class='menu-trigger'>

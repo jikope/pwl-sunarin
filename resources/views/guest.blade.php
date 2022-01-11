@@ -42,6 +42,8 @@
           </div>
         </div>
         <berita-component></berita-component>
+        <notification-component></notification-component>
+
       </div>
 
     </div>

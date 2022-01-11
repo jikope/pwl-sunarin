@@ -40,8 +40,8 @@
                     <ul class="menu">
                         <li class="sidebar-title">Menu</li>
 
-                        <li class="sidebar-item {{ Request::is('admin') ? 'active' : '' }}">
-                            <a href="{{URL::to('/admin')}}" class='sidebar-link'>
+                        <li class="sidebar-item {{ Request::is('dashboard') ? 'active' : '' }}">
+                            <a href="{{Route('dashboard')}}" class='sidebar-link'>
                                 <i class="bi bi-grid-fill"></i>
                                 <span>Dashboard</span>
                             </a>
@@ -76,7 +76,7 @@
                         </ul>
                         </li>
                         <li class="sidebar-item {{ Request::is('admin') ? 'active' : '' }}">
-                            <a href="{{URL::to('/admin')}}" class='sidebar-link'>
+                            <a href="{{Route('notifikasi')}}" class='sidebar-link'>
                                 <i class="bi bi-grid-fill"></i>
                                 <span>Notifikasi</span> <span class="bg-danger text-white notificate" style="border-radius:10px; width:20px; height:20px">0</span>
                             </a>
@@ -252,8 +252,10 @@
         });
     });
 
-    <script>
 
 
-    </script>
+
+    var id = '{{Auth::user()->id ??  0}}';
+     </script>
+<script src="/js/app.js"></script>
 </html>
