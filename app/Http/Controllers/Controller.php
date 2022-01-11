@@ -15,7 +15,6 @@ class Controller extends BaseController
 
     public function MailHelper($username, $body, $destination){
         $details = [
-
             'title' => 'Mail from Bacata',
             'greeting' => 'Hi'.$username,
             'body' => $body

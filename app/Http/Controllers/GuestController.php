@@ -12,8 +12,7 @@ use Request;
 class GuestController extends Controller
 {
     protected $category;
-    public function __construct(){
-        
+    public function __construct(){     
         $this->category = Category::all();
     }
 
@@ -25,6 +24,7 @@ class GuestController extends Controller
         $data = Article::where("type","publish")->join('categories','category_id','categories.id')->select('articles.id as id','image','content','title','content','articles.updated_at as date','category')->take(9)->get();
         return $data;
     }
+
     public function index(){
         $data = Article::where("type","publish")->take(12)->get();
         $latest = Article::join('latests','latests.article_id','articles.id')->select("articles.title");
@@ -33,18 +33,12 @@ class GuestController extends Controller
         return view("guest", compact('data','category'));
     }
 
-
-
     public function berita()
     {
         $data = Article::where("type","publish")->paginate(1);
         $category =  $this->category;
         return view('berita',compact('data','category'));
     }
-
-  
-
-
 
     public function show($id){
         $data = Article::findOrFail($id);

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use App\Models\Proposal;
+use App\Models\User;
 use App\Models\Vocab;
 use App\Models\Notification;
 use Illuminate\Http\Request;
@@ -51,41 +52,62 @@ class EditorController extends Controller
 
     public function action(Request $request)
     {
-        
         $article = Article::findOrFail($request->article_id);
         $isAcc = false;
+        $author = User::findOrFail($article->user_id);
         
         switch ($request->action) {
             case "approve":
-                $article->type = "publish";
-                $pre = Http::post('http://localhost:5000/preprocess', [
-                    'message' => strip_tags($article->content),
-                ]);
-                $article->proposal()->update([
-                    'message' => $request->message,
-                    'status' => 'approved'
-                ]);
+                // Untuk artikel dari contributor
+                if ($article->type == 'completed') {
+                  $pre = Http::post('http://localhost:5000/preprocess', [
+                      'message' => strip_tags($article->content),
+                  ]);
+                    $article->type = "publish";
+                    $toStore = $pre->json('text');
+                    Vocab::create([
+                        'article_id' => $article->id,
+                        'words' => $toStore
+                    ]);
+                    
+                // Untuk proposal dari user
+                } else if($article->type == 'proposal') {
+                    // Tidak diupdate karena artikel akan dihapus
+                    // $article->proposal()->update([
+                    //     'message' => $request->message,
+                    //     'status' => 'approved'
+                    // ]);
+                    if ($author->roles[0]->name == "user" && $author->articles->count() == 1 && $author->articles[0]->type == 'proposal') {
+                        $author->syncRoles(['contributor']);
+                    }
+                    $article->proposal()->delete();
+                    $article->delete();
+                    $this->MailHelper($author->name, "selamat anda menjadi contributor. " + $author, $author);
+                }
 
-                $toStore = $pre->json('text');
-                Vocab::create([
-                    'article_id' => $article->id,
-                    'words' => $toStore
-                ]);
                 $isAcc = true;
                 break;
             
             case "deny":
-                $article->type = "draft";
-                $article->proposal()->update([
-                    'message' => $request->message,
-                    'status' => 'approved'
-                ]);
+                if ($article->type == 'completed') {
+                  $article->type = "draft";
+                } else if ($article->type == 'proposal') {
+                  // Tidak diupdate karena artikel akan dihapus
+                  // $article->proposal()->update([
+                  //     'message' => $request->message,
+                  //     'status' => 'denied'
+                  // ]);
+                  $this->MailHelper($author->name, "Permohonan anda untuk menjadi contributor ditolak. " + $request->message, $author);
+                  $article->delete();
+                }
                 break;                    
         }
+        return redirect()->route('contributor-request');
+        // Line code kebawah tidak dieksekusi
         $result = $article->save();
+
         if ($result) {
-            
-            $message = Notification::create([
+            $message = Notification::create([EditorController
                 'user_id'=>$article->user_id,
                 'title'=>"artikel anda ditolak",
                 'message'=>$this->makeMsg($isAcc,$article->title,$request->message),
