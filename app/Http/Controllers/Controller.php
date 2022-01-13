@@ -23,6 +23,6 @@ class Controller extends BaseController
     
         Mail::to($destination)->send(new NotifEmail($details));
     
-        dd("Email is Sent.");
+       
     }
 }

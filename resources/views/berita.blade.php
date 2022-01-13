@@ -1,3 +1,4 @@
+
 @extends('layouts.app')
 @section('content')
 
@@ -34,21 +35,21 @@
                         <div class="blog_item_img">
                             <img class="card-img rounded-0" src="{{$d->image}}" alt="">
                             <a href="#" class="blog_item_date">
-                                <h3>15</h3>
-                                <p>Jan</p>
+                                <h3>{{ \Carbon\Carbon::parse($d->date)->format('j') }}
+</h3>
+                                <p>{{ \Carbon\Carbon::parse($d->date)->format('M') }}</p>
                             </a>
                         </div>
 
                         <div class="blog_details">
-                            <a class="d-inline-block" href="detail.html">
+                            <a class="d-inline-block" href="{{URL::to('/latest/'.$d->id)}}">
                                 <h2>{{$d->title}}</h2>
                             </a>
-                            <p>That dominion stars lights dominion divide years for fourth have don't stars is that
-                                he earth it first without heaven in place seed it second morning saying.</p>
+                            <p></p>
                             <ul class="blog-info-link">
-                                <li><a href="#"><i class="fa fa-user"></i> admin</a></li>
-                                <li><a href="#"><i class="fa fa-comments"></i> 03 Comments</a></li>
-                                <li><a style="font-weight: bold;" href="#"><i class="fas fa-category"></i> <span style="font-weight: bold;">kategori:</span>Kesehatan</a></li>
+                                <li><a href="#"><i class="fa fa-user"></i>{{$d->author}}</a></li>
+                                
+                                <li><a style="font-weight: bold;" href="#"><i class="fas fa-category"></i> <span style="font-weight: bold;">kategori:</span>{{$d->category}}</a></li>
                             </ul>
                         </div>
                     </article>
@@ -79,48 +80,31 @@
 
                     <aside class="single_sidebar_widget popular_post_widget">
                         <h3 class="widget_title">Berita Terbaru</h3>
+                        @foreach($latest as $l)
                         <div class="media post_item">
-                            <img id="oke" src="assets1/img/post/post_1.png" style="height: 100px; width: 100px;"  alt="post">
+                            <img id="oke" src="{{$l->image}}" style="height: 100px; width: 100px;"  alt="post">
                             <div class="media-body">
                                 <a href="detail.html">
-                                    <h3>From life was you fish...</h3>
+                                    <h3>{{$l->title}}</h3>
                                 </a>
-                                <p>January 12, 2019</p>
-                                <p style="padding-top: 20px; font-weight: 500;">kategori: kesehatan</p>
+                                <p>{{ \Carbon\Carbon::parse($l->updated_at)->format('j F, Y') }}</p>
+                                <p style="padding-top: 20px; font-weight: 500;">kategori: {{$d->category}}</p>
                             </div>
                         </div>
-                        
+                        @endforeach
                        
                     </aside>
 
                     <aside class="single_sidebar_widget post_category_widget">
                         <h4 class="widget_title">Kategori</h4>
                         <ul class="list cat-list" id="kat" style="margin-top: -20px;">
+                            @foreach($category as $c)
                             <li >
-                                <a href="#" class="d-flex">
-                                    <p >Kesehatan</p>
+                                <a href="{{URL::to('/category/'.$c->category)}}" class="d-flex">
+                                    <p >{{$c->category}}</p>
                                 </a>
                             </li>
-                            <li>
-                                <a href="#" class="d-flex">
-                                    <p>Olaharga</p>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="d-flex">
-                                    <p>Kriminal</p>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="d-flex">
-                                    <p>Politik</p>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="d-flex">
-                                    <p>Bisnis</p>
-                                </a>
-                            </li>
+                            @endforeach
                         </ul>
                     </aside>
 

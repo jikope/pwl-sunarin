@@ -92,7 +92,12 @@
               <li class="scroll-to-section"><a href="{{URL::to('/#kategori')}}">Kategori</a></li>
               <li class="scroll-to-section"><a href="{{URL::to('/#contact')}}">Kontak</a></li>
               @if(Auth::check())
+              @if(Auth::user()->hasRole('user'))
               <li class="scroll-to-section"><a href="{{Route('contributor-request.form')}}">Daftar Kontributor</a></li>
+              @else
+              <li class="scroll-to-section"><a href="{{URL::to('/dashboard')}}">Dashboard</a></li>
+
+              @endif
               <li class="scroll-to-section">
                 
                 <div class="border-first-button"><a href="{{URL::to('/login')}}" onclick="event.preventDefault();

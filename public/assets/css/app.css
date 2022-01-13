@@ -870,7 +870,7 @@
 }
 .sidebar-wrapper .menu .submenu {
   list-style: none;
-  display: none;
+  display: block;
   transition: max-height 2s cubic-bezier(0, 0.55, 0.45, 1);
   overflow: hidden;
 }

@@ -69,10 +69,11 @@ Route::delete('/category/{id}', [CategoryController::class, 'destroy'])->name('c
 //user biasa
 Route::get('/', [GuestController::class, 'index']);
 Route::get('/berita', [GuestController::class, 'berita']);
-Route::get('/suggest', [GuestController::class, 'getSugesstion']);
+Route::get('/suggest/{id}', [GuestController::class, 'getSugesstion']);
 Route::get('/latest/{id}', [LatestController::class, 'insert'])->name('add.latest');
 Route::get('/{id}/show',[GuestController::class, 'show'])->name('display.article');
 Route::get('/category/{category}', [GuestController::class, 'getbyCategory']);
+Route::get('/categoryfetch/{category}', [GuestController::class, 'fetchNewsbyCategory']);
 Route::get('/search', [GuestController::class, 'search']);
 Route::get('/kategori', [GuestController::class, 'kategori']);
 
@@ -84,7 +85,7 @@ Route::group(['prefix' => '/dashboard'], function() {
       return view('dashboard');
     })->name('dashboard');
     
-    Route::resource('users', UserController::class);
+    Route::resource('users', SuperController::class);
 });
 
 Auth::routes(['verify'=>true]);
@@ -103,3 +104,4 @@ Route::get('/send/mail', [EmailController::class, 'index']);
 //vue helper
 Route::get('/categories', [GuestController::class, 'fetchCategory']);
 Route::get('/news', [GuestController::class, 'fetchNews']);
+

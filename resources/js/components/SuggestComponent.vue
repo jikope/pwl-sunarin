@@ -3,31 +3,7 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-12">
-          <div class="row d-flex justify-content-between">
-            <div class="col-lg-3 col-md-3">
-              <div class="section-tittle mb-30">
-                <h3>Kategori Berita</h3>
-              </div>
-            </div>
-            <div class="col-lg-9 col-md-9 col-xl-9">
-              <div class="properties__button">
-                <!--Nav Button  -->
-                <nav>
-                  <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" role="tab" v-for="(item, index) in categories" :key="index"
-                      aria-controls="nav-home" aria-selected="true">
-                     <button class="btn text-primary" v-on:click="changeSelected(item.category)">
-                      {{item.category}}
-                      </button>
-                      </a>
-                    
-
-                  </div>
-                </nav>
-                <!--End Nav Button  -->
-              </div>
-            </div>
-          </div>
+          <h2 class="mb-3">Rekomendasi</h2>
           <div class="row">
             <div class="col-12">
               <!-- Nav Card -->
@@ -43,7 +19,7 @@
                           </div>
                           <div class="trend-bottom-cap">
                             <span class="color1">{{item.category}}</span>
-                            <h4 style="margin-top: 10px;"><a v-bind:href="getUri('latest/'+item.id)">{{item.title}}</a></h4>
+                            <h4 style="margin-top: 10px;"><a v-bind:href="getUri('/latest/'+item.id)">{{item.title}}</a></h4>
                             <p style="margin-top: 5px; font-weight: bold;">{{getDateFormat(item.date)}} </p>
                             <p style="margin-top: -5px;">{{stripHtml(item.content)}} </p>
                           </div>
@@ -57,7 +33,7 @@
                 </div>
               
                   <div class="trending-tittle1 border-first-button">
-                    <strong><a v-bind:href="getUri('category/'+categorySelected)"> Selengkapnya</a></strong>
+                    <strong><a v-bind:href="getUri('/category/'+categorySelected)"> Selengkapnya</a></strong>
                  </div>
                 </div>
               </div>
@@ -74,9 +50,10 @@
 <script>
 import moment from 'moment';
         export default {
-        
+         props: ['spesific'],
         data(){
             return{
+                url:"",
                 news: [],
                 categories:[],
                 categorySelected: "sport",
@@ -89,10 +66,14 @@ import moment from 'moment';
         },
         methods: {
             getDateFormat(date){
+                
                 return moment(String(date)).format('MM-ddd-YYYY ')
             },
             fetchNews(){
-                axios.get('categoryfetch/'+this.categorySelected).then(response=>{
+                if(this.spesific){
+                    this.url=this.spesific
+                }
+                axios.get('/suggest/'+this.spesific).then(response=>{
                     this.news = response.data;
                 })
             },
@@ -106,7 +87,7 @@ import moment from 'moment';
             },
             
             readNews(id, url){
-                 axios.get('/detail/'+id+'/read').then(response=>{
+                 axios.post('/detail/'+id+'/read').then(response=>{
                     window.location.href = url
                 })
                 

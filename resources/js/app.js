@@ -21,6 +21,7 @@ window.Vue = require('vue').default;
 Vue.component('notification-component', require('./components/NotificationComponent.vue').default);
 Vue.component('category-component', require('./components/CategoryComponent.vue').default);
 Vue.component('berita-component', require('./components/BeritaComponent.vue').default);
+Vue.component('suggest-component', require('./components/SuggestComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

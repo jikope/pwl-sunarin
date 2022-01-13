@@ -23,9 +23,12 @@ class EditorController extends Controller
 
     public function proposals()
     {
-        $data = Article::join("categories", "categories.id", "articles.category_id")
+        $data = Article::whereHas('proposal', function ($q) {
+            $q->where('status', 'active')->where('editor_id', Auth::user()->id);
+        })->join("categories", "categories.id", "articles.category_id")
             ->select("title", "category", "articles.id as id", "user_id")
             ->where([
+                
                 ["type", "complete"]
             ])->paginate(1);
 
@@ -58,11 +61,13 @@ class EditorController extends Controller
         
         switch ($request->action) {
             case "approve":
+                
                 // Untuk artikel dari contributor
-                if ($article->type == 'completed') {
+                if ($article->type == 'complete') {
                   $pre = Http::post('http://localhost:5000/preprocess', [
                       'message' => strip_tags($article->content),
                   ]);
+                  
                     $article->type = "publish";
                     $toStore = $pre->json('text');
                     Vocab::create([
@@ -83,13 +88,15 @@ class EditorController extends Controller
                     $article->proposal()->delete();
                     $article->delete();
                     $this->MailHelper($author->name, "selamat anda menjadi contributor. " , $author->email);
+                    return redirect()->route('editor.contributor-request');
+                
                 }
 
                 $isAcc = true;
                 break;
             
             case "deny":
-                if ($article->type == 'completed') {
+                if ($article->type == 'complete') {
                   $article->type = "draft";
                 } else if ($article->type == 'proposal') {
                   // Tidak diupdate karena artikel akan dihapus
@@ -97,14 +104,13 @@ class EditorController extends Controller
                   //     'message' => $request->message,
                   //     'status' => 'denied'
                   // ]);
-                  $this->MailHelper($author->name, "Permohonan anda untuk menjadi contributor ditolak. " + $request->message, $author->email);
+                  $this->MailHelper($author->name, "Permohonan anda untuk menjadi contributor ditolak. ". $request->message, $author->email);
                   $article->delete();
                 }
                 break;                    
         }
-        return redirect()->route('editor.contributor-request');
         // Line code kebawah tidak dieksekusi
-        $result = $article->save();
+        $result = $article->update();
 
         if ($result) {
             $message = Notification::create([
@@ -120,7 +126,8 @@ class EditorController extends Controller
             //dd($messages->count());
             Broadcast(new NotifSentEvent($article->user_id, $message));
             Broadcast(new NotifCounterEvent($article->user_id,$messages->count()));
-            return 200;
+            return redirect()->route('proposal.index')->withErrors(['message' => 'berhasil']);
+
 
             
         } else {
@@ -139,7 +146,7 @@ class EditorController extends Controller
 
     public function contributorrequest()
     {
-        $data = Article::whereHas('proposal', function ($q) {
+        $data = Article::where('type','proposal')->whereHas('proposal', function ($q) {
             $q->where('status', 'active')->where('editor_id', Auth::user()->id);
         })->paginate(5);
 

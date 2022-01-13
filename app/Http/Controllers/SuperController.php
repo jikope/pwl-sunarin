@@ -45,7 +45,8 @@ class SuperController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-        ]);
+            "email_verified_at" => \Carbon\Carbon::now()
+            ]);
 
         if(!$user) {
             return redirect()->back();
@@ -53,7 +54,7 @@ class SuperController extends Controller
 
         $roleUser = Role::where('name', $data['role'])->first();
         $user->assignRole($roleUser);
-
+        $this->MailHelper($user->name, "anda telah didaftarkan menjadi ".$data['role']."di bacata dengan password ".$data['password']."harap segera memperbaharui password anda di halaman lupa password" , $user->email);
         return redirect()->route('users.index');
     }
 

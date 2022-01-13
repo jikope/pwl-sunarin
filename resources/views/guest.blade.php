@@ -42,8 +42,7 @@
           </div>
         </div>
         <berita-component></berita-component>
-        <notification-component></notification-component>
-
+       
       </div>
 
     </div>
@@ -52,6 +51,7 @@
 
 
   <!-- Whats New Start -->
+<suggest-component :spesific="0"></suggest-component>
  <category-component></category-component>
   <!-- Whats New End -->
 

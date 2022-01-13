@@ -19,7 +19,7 @@
                       <img v-bind:src="getUri(item.image)" alt=""> <!-- gambar ada di style.css cuy cari ae carousel item -->
                       <div class="trend-top-cap" style="z-index: 1;">
                         <span>{{item.category}}</span>
-                        <h2 id="siniaja"><a href="details.html">{{item.title}}</a></h2>
+                        <h2 id="siniaja"><a v-bind:href="getUri('latest/'+item.id)">{{item.title}}</a></h2>
                       </div>
                     </div>
                
@@ -47,7 +47,7 @@
                     </div>
                     <div class="trend-bottom-cap">
                       <span class="color1">{{item.category}}</span>
-                      <h4><a href="details.html">{{item.title}}</a></h4>
+                      <h4><a v-bind:href="getUri('latest/'+item.id)">{{item.title}}</a></h4>
                       <p style="margin-top: 5px; font-weight: bold;">{{getDateFormat(item.date)}}</p>
                       <p style="margin-top: -5px;">{{stripHtml(item.content)}} </p>
                     </div>
@@ -71,7 +71,7 @@
               </div>
               <div class="trand-right-cap">
                 <span class="color1">{{item.category}}</span>
-                <h4><a href="details.html">{{item.title}}</a></h4>
+                <h4><a v-bind:href="getUri('latest/'+item.id)">{{item.title}}</a></h4>
                 <p style="margin-top: 5px; font-weight: bold;">{{getDateFormat(item.date)}} </p>
                 <p style="margin-top: -5px;">{{stripHtml(item.content)}} </p>
 
@@ -89,7 +89,6 @@
 
 <script>
 import moment from 'moment';
-
         export default {
         
         data(){
@@ -103,7 +102,6 @@ import moment from 'moment';
         created(){
            this.fetchNews();
            
-
             
         },
         methods: {
@@ -152,4 +150,3 @@ import moment from 'moment';
     }
     
 </script>
-
