@@ -51,10 +51,10 @@
 
 
   <!-- Whats New Start -->
-<suggest-component :spesific="0"></suggest-component>
+
  <category-component></category-component>
   <!-- Whats New End -->
-
+  <suggest-component :spesific="0"></suggest-component>
   <div id="services" class="services section">
     <div class="container">
       <div class="row">

@@ -5682,8 +5682,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['spesific'],
@@ -56746,11 +56744,7 @@ var render = function () {
     "section",
     {
       staticClass: "whats-news-area pt-50 pb-20  wow fadeInUp",
-      attrs: {
-        id: "kategori",
-        "data-wow-duration": "1s",
-        "data-wow-delay": "0.3s",
-      },
+      attrs: { "data-wow-duration": "1s", "data-wow-delay": "0.3s" },
     },
     [
       _c("div", { staticClass: "container" }, [
@@ -56849,7 +56843,9 @@ var render = function () {
                                             [
                                               _vm._v(
                                                 _vm._s(
-                                                  _vm.getDateFormat(item.date)
+                                                  _vm.getDateFormat(
+                                                    item.updated_at
+                                                  )
                                                 ) + " "
                                               ),
                                             ]
@@ -56878,26 +56874,6 @@ var render = function () {
                               )
                             }),
                             0
-                          ),
-                        ]),
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "trending-tittle1 border-first-button" },
-                      [
-                        _c("strong", [
-                          _c(
-                            "a",
-                            {
-                              attrs: {
-                                href: _vm.getUri(
-                                  "/category/" + _vm.categorySelected
-                                ),
-                              },
-                            },
-                            [_vm._v(" Selengkapnya")]
                           ),
                         ]),
                       ]

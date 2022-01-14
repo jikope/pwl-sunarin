@@ -1,5 +1,5 @@
 <template>
- <section class="whats-news-area pt-50 pb-20  wow fadeInUp" id="kategori" data-wow-duration="1s" data-wow-delay="0.3s">
+ <section class="whats-news-area pt-50 pb-20  wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.3s">
     <div class="container">
       <div class="row">
         <div class="col-lg-12">
@@ -20,7 +20,7 @@
                           <div class="trend-bottom-cap">
                             <span class="color1">{{item.category}}</span>
                             <h4 style="margin-top: 10px;"><a v-bind:href="getUri('/latest/'+item.id)">{{item.title}}</a></h4>
-                            <p style="margin-top: 5px; font-weight: bold;">{{getDateFormat(item.date)}} </p>
+                            <p style="margin-top: 5px; font-weight: bold;">{{getDateFormat(item.updated_at)}} </p>
                             <p style="margin-top: -5px;">{{stripHtml(item.content)}} </p>
                           </div>
                         </div>
@@ -32,9 +32,7 @@
                   </div>
                 </div>
               
-                  <div class="trending-tittle1 border-first-button">
-                    <strong><a v-bind:href="getUri('/category/'+categorySelected)"> Selengkapnya</a></strong>
-                 </div>
+                  
                 </div>
               </div>
             </div>

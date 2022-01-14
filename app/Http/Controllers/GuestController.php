@@ -24,7 +24,7 @@ class GuestController extends Controller
     }
 
     public function fetchNews(){
-        $data = Article::where("type","publish")->join('categories','category_id','categories.id')->select('articles.id as id','image','content','title','content','articles.updated_at as date','category')->take(9)->get();
+        $data = Article::where("type","publish")->join('categories','category_id','categories.id')->select('articles.id as id','image','content','title','content','articles.updated_at as date','category')->orderBy('articles.updated_at','desc')->take(9)->get();
         return $data;
     }
     public function index(){
@@ -70,7 +70,7 @@ class GuestController extends Controller
 
         $suggestions_id = $suggestion->json('recommended_news');
 
-        $data = Article::whereIn('id',$suggestions_id)->get();
+        $data = Article::whereIn('id',$suggestions_id)->orderBy('updated_at','desc')->get();
         return $data;
     }
 
