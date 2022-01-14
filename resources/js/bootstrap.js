@@ -44,7 +44,7 @@ window.Echo = new Echo({
      disableStats: true,
  });
 
-
+console.log(id)
 window.Echo.channel('notif_counter'+id).listen('NotifCounterEvent',(event)=>{
 
     $(".notificate").text(event.notifications_counter);

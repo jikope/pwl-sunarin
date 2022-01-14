@@ -111,13 +111,19 @@ class EditorController extends Controller
         }
         // Line code kebawah tidak dieksekusi
         $result = $article->update();
-
+        if($isAcc){
+            $title ="artikel anda diterima";
+            $url = URL::to('/contributor/news/published/');
+        }else{
+            $title ="artikel anda ditolak";
+            $url = URL::to('/contributor/news/draft/');
+        }
         if ($result) {
             $message = Notification::create([
                 'user_id'=>$article->user_id,
-                'title'=>"artikel anda ditolak",
+                'title'=>$title,
                 'message'=>$this->makeMsg($isAcc,$article->title,$request->message),
-                'url'=>URL::to('/contributor/news/draft/'),
+                'url'=>$url,
                 'isRead'=>'0',
                 'created_at'=>\Carbon\Carbon::now(),
                 'updated_at'=>\Carbon\Carbon::now()

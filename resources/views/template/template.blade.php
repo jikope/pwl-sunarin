@@ -211,7 +211,8 @@
 
     var success = '{{Session::has('success')}}';
     var alert = '{{Session::has('failed')}}';
-
+    var id = {{Auth::user()->id}};
+    console.log(id);
 
     if(success){
         Toastify({
@@ -255,7 +256,7 @@
 
 
 
-    var id = '{{Auth::user()->id ??  0}}';
+   
      </script>
 <script src="/js/app.js"></script>
 </html>

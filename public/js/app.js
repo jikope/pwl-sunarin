@@ -5831,6 +5831,7 @@ window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
   forceTLS: false,
   disableStats: true
 });
+console.log(id);
 window.Echo.channel('notif_counter' + id).listen('NotifCounterEvent', function (event) {
   $(".notificate").text(event.notifications_counter);
 });
