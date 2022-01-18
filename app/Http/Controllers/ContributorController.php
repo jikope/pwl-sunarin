@@ -38,7 +38,7 @@ class ContributorController extends Controller
         $data = Article::join("categories", "categories.id", "articles.category_id")->select("title", "category", "articles.id as id", "user_id")->where([
             ["type", "publish"],
             ["user_id", Auth::user()->id]
-        ])->paginate(1);
+        ])->paginate(5);
         return view("contributor.display", compact('data'));
     }
 
@@ -47,7 +47,7 @@ class ContributorController extends Controller
         $data = Article::join("categories", "categories.id", "articles.category_id")->select("title", "category", "articles.id as id", "user_id")->where([
             ["type", "complete"],
             ["user_id", Auth::user()->id]
-        ])->paginate(1);
+        ])->paginate(5);
         return view("contributor.display", compact('data'));
     }
 

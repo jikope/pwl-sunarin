@@ -28,9 +28,9 @@
     </tr>
   </thead>
   <tbody>
-  @foreach($data as $d)
+  @foreach($data as $key => $d)
     <tr>
-      <th scope="row">1</th>
+      <th scope="row"> {{ ($data->currentpage()-1) * $data->perpage() + $key + 1 }}</th>
       <td>{{$d->title}}</td>
       <td>{{$d->category}}</td>
       <td>

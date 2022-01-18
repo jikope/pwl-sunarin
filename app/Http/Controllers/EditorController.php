@@ -30,7 +30,7 @@ class EditorController extends Controller
             ->where([
                 
                 ["type", "complete"]
-            ])->paginate(1);
+            ])->paginate(5);
 
         return view('editor/display', compact('data'));
     }

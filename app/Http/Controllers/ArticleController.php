@@ -17,7 +17,7 @@ class ArticleController extends Controller
 
     public function viewcontrib()
     {
-        $data = Article::join("categories", "categories.id", "articles.category_id")->select("title", "category", "articles.id as id")->where("type", "!=", "proposal")->paginate(1);
+        $data = Article::join("categories", "categories.id", "articles.category_id")->select("title", "category", "articles.id as id")->where("type", "!=", "proposal")->paginate(5);
         return view("contributor.display", compact('data'));
     }
 
@@ -69,9 +69,9 @@ class ArticleController extends Controller
         }
         $info = $post->update($data);
         if (!is_null($info)) {
-            return redirect()->route('article.index')->with('success', 'Success! data berhasil diupdate');
+            return redirect()->route('contributor.draft.index')->with('success', 'Success! data berhasil diupdate');
         } else {
-            return redirect()->route('article.index')->with('failed', 'Alert! terjadi kesalahan');
+            return redirect()->route('contributor.draft.index')->with('failed', 'Alert! terjadi kesalahan');
         }
     }
 
