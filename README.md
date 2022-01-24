@@ -38,9 +38,6 @@ and also don't forget to run websocket server
 ```
 php artisan websockets:serve 
 ```
+download this repo and run it
 
-todo list
-1. copntributor request
-2. random pick editor 
-3. change latest view article database to cookie
-4. 
+https://github.com/ayogaan/news-recommender-for-bacata
